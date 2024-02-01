@@ -7,7 +7,7 @@ using UnityEngine.Experimental.XR;
 
 public class Tabletop : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     void Start()
     {
         
