@@ -8,8 +8,8 @@ namespace CompleteBackend
     public class DatabaseManager
     {
         // conection string used for connecting to the db of math questions
-        private string connectionString = "Data Source=localhost;Initial Catalog=mathDB;User ID=sa;Password=seniorProject24;";
-
+        //private string connectionString = "Data Source=localhost;Initial Catalog=mathDB;User ID=sa;Password=seniorProject24;";
+        private string connectionString = "Server=tcp:berd.database.windows.net,1433;Initial Catalog=seniorProject24;Persist Security Info=False;User ID=berd;Password=seniorProject24;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         public DatabaseManager()
         {
         }
