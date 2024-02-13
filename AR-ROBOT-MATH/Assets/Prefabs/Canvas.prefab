@@ -235,6 +235,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Disks
       objectReference: {fileID: 0}
+    - target: {fileID: 2497386342466346105, guid: 868a86dee0e574ccaa912ae882f6a75a, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8679877340732652075, guid: 868a86dee0e574ccaa912ae882f6a75a, type: 3}
       propertyPath: m_RootOrder
       value: 1
