@@ -209,7 +209,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568378600}
-  m_LocalRotation: {x: 0.5870383, y: -0.3941904, z: -0.39419046, w: 0.5870383}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 0
@@ -221,7 +221,7 @@ Transform:
   - {fileID: 1902414158}
   m_Father: {fileID: 1757823196}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 22.238, y: -90, z: -90}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!64 &568378602
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -640,7 +640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 976654968341104084, guid: fe763f426c24c434ea659047b14ba886, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.137
+      value: -0.007
       objectReference: {fileID: 0}
     - target: {fileID: 976654968341104084, guid: fe763f426c24c434ea659047b14ba886, type: 3}
       propertyPath: m_LocalRotation.w
@@ -660,11 +660,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 976654968341104084, guid: fe763f426c24c434ea659047b14ba886, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.188
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 976654968341104084, guid: fe763f426c24c434ea659047b14ba886, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.008
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 976654968341104084, guid: fe763f426c24c434ea659047b14ba886, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1571,7 +1571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1327514486745512958, guid: 10bde0f83de96436882b8c081d52e02a, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1327514486745512958, guid: 10bde0f83de96436882b8c081d52e02a, type: 3}
       propertyPath: m_AnchorMax.x
