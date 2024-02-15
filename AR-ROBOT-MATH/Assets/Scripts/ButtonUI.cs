@@ -10,11 +10,14 @@ public class ButtonUI : MonoBehaviour
 {
 
 
-    public void ButtonPressed()
+    public void LeftButtonPressed()
     {
-        Debug.Log("I'm pressed");
+        Debug.Log("I'm left button pressed");
     }
-
+    public void RightButtonPressed()
+    {
+        Debug.Log("I'm right button pressed");
+    }
 
    
 }
