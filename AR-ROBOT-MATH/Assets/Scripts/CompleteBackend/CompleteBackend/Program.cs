@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Media;
-//using Xamarin.Forms;
-//using Xamarians.MediaPlayer;
 
 namespace CompleteBackend
 {
@@ -10,13 +8,12 @@ namespace CompleteBackend
     {
         static void Main()
         {
-            DatabaseManager databaseManager = new DatabaseManager();
-            Dictionary<string, string> mathQuestion = databaseManager.RetreiveMathProblems();
+            //DatabaseManager databaseManager = new DatabaseManager();
+            BackendApi backendApiEndpoint = new BackendApi();
+            Dictionary<string, string> mathQuestion = backendApiEndpoint.GetMathProblem();
 
             // convert the answer from string to an int
             string correctAnswer = mathQuestion["Answer"];
-            int numCorrectAnswer = int.Parse(correctAnswer);
-
             Console.WriteLine($"Your question is: {mathQuestion["Question"]}");
 
             bool correctChoice = false;
@@ -33,23 +30,17 @@ namespace CompleteBackend
                     continue;
                 }
 
-                correctChoice = ValidateAnswer(userAnswer, numCorrectAnswer);
+                correctChoice = backendApiEndpoint.ValidateAnswer(userAnswer);
 
                 if (correctChoice)
                 {
                     Console.WriteLine("You have entered the correct answer, good job!");
-                    PlayBeat(); // play the first beat repeatedly
+                    //PlayBeat(); // play the first beat repeatedly
                     break;
                 }
                 Console.WriteLine("Wrong answer, try again.");
             }
-
             Console.ReadKey();
-        }
-
-        static bool ValidateAnswer(int userAnswer, int correctAnswer)
-        {
-            return userAnswer == correctAnswer;
         }
 
         static void PlayBeat()
