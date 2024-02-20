@@ -6,21 +6,23 @@ using UnityEngine.UI;
 public class DisplayScript : MonoBehaviour
 {
     public Text displayText;
-    public string newText = "New Text String";
+    //public string newText = "New Text String";
     // Start is called before the first frame update
     void Start()
     {
-        
+        //BackendApi backendApiEndpoint = new BackendApi();
+        //Dictionary<string, string> mathQuestion = backendApiEndpoint.GetMathProblem();
+
     }
-    //function that will be called by backend
+    
     void ChangeText()
     {
-        displayText.text = newText;
+        //displayText.text = mathQuestion["Question"];
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        ChangeText();
     }
 }
