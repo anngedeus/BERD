@@ -11,6 +11,7 @@ public class RotateDiskT : MonoBehaviour
     private Touch touch;
     private Vector2 oldTouchPosition;
     private Vector2 NewTouchPosition;
+    private int counter;
     [SerializeField]
     private float keepRotateSpeed = 10f;
 
@@ -49,11 +50,13 @@ public class RotateDiskT : MonoBehaviour
     void RotateLeft()
     {
         transform.rotation = Quaternion.Euler(0f, 1.5f * keepRotateSpeed, 0f) * transform.rotation;
+        counter--;
     }
 
     void RotateRight()
     {
         transform.rotation = Quaternion.Euler(0f, -1.5f * keepRotateSpeed, 0f) * transform.rotation;
+        counter++;
     }
 
 }
