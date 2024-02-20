@@ -34,23 +34,17 @@ public class AudioSliderScript : MonoBehaviour
     private void Start()
     {
         slider = GetComponent<Slider>();
-        slider.onValueChanged.AddListener(OnSliderValueChanged);
     }
 
     void Update()
     {
-        slider.onValueChanged.AddListener(OnSliderValueChanged);
-    }
-
-    private void OnSliderValueChanged(float value)
-    {
         switch (parameter)
         {
             case AudioParameter.Volume:
-                audioSource.volume = value;
+                audioSource.volume = slider.value;
                 break;
             case AudioParameter.Pitch:
-                audioSource.pitch = value;
+                audioSource.pitch = slider.value;
                 break;
             default:
                 Debug.LogWarning("Unhandled AudioParameter: " + parameter);
