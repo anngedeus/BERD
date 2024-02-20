@@ -51,12 +51,14 @@ public class RotateDiskT : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0f, 1.5f * keepRotateSpeed, 0f) * transform.rotation;
         counter--;
+        Debug.Log("I'm decreasing");
     }
 
     void RotateRight()
     {
         transform.rotation = Quaternion.Euler(0f, -1.5f * keepRotateSpeed, 0f) * transform.rotation;
         counter++;
+        Debug.Log("I'm increasing");
     }
 
 }
