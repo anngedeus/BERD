@@ -31,6 +31,7 @@ public class BackendApi : MonoBehaviour
         }
     }
 
+    // makes a GET request to the backend API to retrieve math problems.
     IEnumerator RetrieveMathProblem(System.Action<List<Dictionary<string, string>>> callback)
     {
         Debug.Log("Starting...");

@@ -26,7 +26,6 @@ namespace Backend
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MathProblems API", Version = "v1" });
             });
 
-            // Add your other services here if needed
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

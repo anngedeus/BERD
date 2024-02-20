@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-
+/*
+ *  this entire class is responsible for handling HTTP requests related to math problems
+ */
 namespace Backend.Controllers
 {
     [ApiController]
@@ -13,35 +15,30 @@ namespace Backend.Controllers
 
         public MathProblemsController(IConfiguration configuration)
         {
-            // Retrieve the connection string from appsettings.json
+            // get the connection string from appsettings.json
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
+        // responsible for etrieving information from the sql server
         [HttpGet]
         public IActionResult GetMathProblems()
         {
-            // Create a list to store math problems
             List<MathProblem> mathProblems = new List<MathProblem>();
 
-            // Establish a connection to the database
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                // Open the connection
                 connection.Open();
 
-                // SQL query to retrieve math problems from the database
+                // SQL query to randomly retrieve math problems from the database
                 string query = "SELECT TOP 1 Question, Answer, Difficulty FROM MathProblems ORDER BY NEWID()";
 
-                // Create a command object
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    // Execute the query and retrieve the results
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        // Check if there are any rows returned
                         if (reader.Read())
                         {
-                            // Create a MathProblem object from the query results
+                            // create a MathProblem object from the query results
                             MathProblem mathProblem = new MathProblem
                             {
                                 Question = reader["Question"].ToString(),
@@ -49,20 +46,19 @@ namespace Backend.Controllers
                                 Difficulty = reader["Difficulty"].ToString()
                             };
 
-                            // Add the MathProblem object to the list
                             mathProblems.Add(mathProblem);
                         }
                     }
                 }
             }
 
-            // Create an object to wrap the list of math problems
+            // create an object to wrap the list of math problems
             var response = new MathProblemsResponse
             {
                 MathProblems = mathProblems
             };
 
-            // Return the response object as JSON
+            // return the response object as JSON
             return Ok(response);
         }
     }
