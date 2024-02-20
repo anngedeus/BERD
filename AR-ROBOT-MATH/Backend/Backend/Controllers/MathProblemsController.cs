@@ -56,8 +56,14 @@ namespace Backend.Controllers
                 }
             }
 
-            // Return the list of math problems as JSON
-            return Ok(mathProblems);
+            // Create an object to wrap the list of math problems
+            var response = new MathProblemsResponse
+            {
+                MathProblems = mathProblems
+            };
+
+            // Return the response object as JSON
+            return Ok(response);
         }
     }
 
@@ -66,5 +72,10 @@ namespace Backend.Controllers
         public string Question { get; set; }
         public string Answer { get; set; }
         public string Difficulty { get; set; }
+    }
+
+    public class MathProblemsResponse
+    {
+        public List<MathProblem> MathProblems { get; set; }
     }
 }

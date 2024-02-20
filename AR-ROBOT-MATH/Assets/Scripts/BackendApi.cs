@@ -5,50 +5,94 @@ using System.Collections.Generic;
 
 public class BackendApi : MonoBehaviour
 {
-    // URL of the backend API endpoint to retrieve math problems
-    public string apiUrl = "https://localhost:7131/api/math-problems";
+    public string apiUrl = "https://localhost:7132/api/math-problems";
 
-    // Method to retrieve a math problem from the backend API
-    public IEnumerator RetrieveMathProblem(System.Action<Dictionary<string, string>> callback)
-    {
-        // Send a GET request to the backend API
-        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
-        {
-            yield return request.SendWebRequest();
-
-            // Check if the request was successful
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError("Failed to retrieve math problem: " + request.error);
-                callback(null); // Notify the caller with a null result
-            }
-            else
-            {
-                // Parse the JSON response
-                string jsonResponse = request.downloadHandler.text;
-                Dictionary<string, string> mathProblem = JsonUtility.FromJson<Dictionary<string, string>>(jsonResponse);
-
-                // Invoke the callback with the retrieved math problem
-                callback(mathProblem);
-            }
-        }
-    }
     void Start()
     {
         StartCoroutine(RetrieveMathProblem(OnMathProblemReceived));
     }
 
-    void OnMathProblemReceived(Dictionary<string, string> mathProblem)
+    void OnMathProblemReceived(List<Dictionary<string, string>> mathProblems)
     {
-        if (mathProblem != null)
+        if (mathProblems != null)
         {
-            // Math problem received, do something with it
-            Debug.Log("Math problem received: " + mathProblem["Question"]);
+            foreach (var mathProblem in mathProblems)
+            {
+                string question = mathProblem["question"];
+                string answer = mathProblem["answer"];
+                string difficulty = mathProblem["difficulty"];
+
+                Debug.Log($"Math problem received: Question: {question}, Answer: {answer}, Difficulty: {difficulty}");
+            }
         }
         else
         {
-            // Error occurred while retrieving math problem
-            Debug.LogError("Failed to retrieve math problem.");
+            Debug.LogError("Failed to retrieve math problems.");
         }
+    }
+
+    IEnumerator RetrieveMathProblem(System.Action<List<Dictionary<string, string>>> callback)
+    {
+        Debug.Log("Starting...");
+
+        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError("Failed to retrieve math problems: " + request.error);
+                callback(null);
+            }
+            else
+            {
+                string jsonResponse = request.downloadHandler.text;
+                // Debug.Log("Received JSON response: " + jsonResponse);
+
+                try
+                {
+                    List<Dictionary<string, string>> mathProblems = ParseMathProblems(jsonResponse);
+                    callback(mathProblems);
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("Failed to parse JSON response: " + e.Message);
+                    callback(null);
+                }
+            }
+        }
+    }
+
+    List<Dictionary<string, string>> ParseMathProblems(string jsonResponse)
+    {
+        var mathProblems = new List<Dictionary<string, string>>();
+
+        // manual parsing
+        var jsonObject = JsonUtility.FromJson<JsonObject>(jsonResponse);
+        foreach (var mathProblemObject in jsonObject.mathProblems)
+        {
+            var mathProblem = new Dictionary<string, string>();
+            mathProblem["question"] = mathProblemObject.question;
+            mathProblem["answer"] = mathProblemObject.answer;
+            mathProblem["difficulty"] = mathProblemObject.difficulty;
+
+            mathProblems.Add(mathProblem);
+        }
+
+        return mathProblems;
+    }
+
+    [System.Serializable]
+    public class JsonObject
+    {
+        public List<MathProblemObject> mathProblems;
+    }
+
+    [System.Serializable]
+    public class MathProblemObject
+    {
+        public string question;
+        public string answer;
+        public string difficulty;
     }
 }

@@ -44,7 +44,7 @@ public class RotateDisk : MonoBehaviour
         if (Mathf.Abs(transform.rotation.eulerAngles.y) < 0.01f)
         {
             rotationCount++;
-            Debug.Log("Rotation Count: " + rotationCount);
+            // Debug.Log("Rotation Count: " + rotationCount);
         }
     }
 }
