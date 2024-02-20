@@ -9,8 +9,8 @@ using System;
 public class RotateDiskO : MonoBehaviour
 {
     private Touch touch;
-    private Vector2 oldTouchPosition;
-    private Vector2 NewTouchPosition;
+    private Vector3 oldTouchPosition;
+    private Vector3 NewTouchPosition;
     private int counter;
     [SerializeField]
     private float keepRotateSpeed = 10f;
@@ -34,13 +34,13 @@ public class RotateDiskO : MonoBehaviour
                 NewTouchPosition = touch.position;
             }
 
-            Vector2 rotDirection = oldTouchPosition - NewTouchPosition;
+            Vector3 rotDirection = oldTouchPosition - NewTouchPosition;
             Debug.Log(rotDirection);
-            if (rotDirection.x < 0)
+            if (rotDirection.z < 0)
             {
                 RotateRight();
             }
-            else if (rotDirection.x > 0)
+            else if (rotDirection.z > 0)
             {
                 RotateLeft();
             }
