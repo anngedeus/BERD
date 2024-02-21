@@ -7,26 +7,37 @@ public class DisplayScript : MonoBehaviour
 {
     public Text displayText;
     public Dictionary<string, string> mathQuestion = new Dictionary<string, string>();
+    public BackendApi backendApiEndpoint; // Reference to the BackendApi script
 
-    // Start is called before the first frame update
     void Start()
     {
-        // BackendApi backendApiEndpoint = new BackendApi();
-        // mathQuestion = backendApiEndpoint.getMathQuestion(); // Assign the value returned by getMathQuestion to mathQuestion
-        // Debug.Log(mathQuestion);
+        // Instantiate the BackendApi script dynamically
+        GameObject backendApiObject = new GameObject("BackendApiObject");
+        backendApiEndpoint = backendApiObject.AddComponent<BackendApi>();
+
+        Debug.Log(backendApiEndpoint);
+        // Start the coroutine to display the math problem
+        StartCoroutine(DisplayMathProblem());
     }
 
-    
+    IEnumerator DisplayMathProblem()
+    {
+        // Wait for BackendApi to fetch the question
+        yield return new WaitUntil(() => backendApiEndpoint.mathQuestion != null);
+
+        if (backendApiEndpoint.mathQuestion != null) 
+        {
+            string question = backendApiEndpoint.mathQuestion["question"];
+            Debug.Log("Math problem from BackendApi: " + question);
+        }
+        else 
+        {
+            Debug.LogError("No math problem received from BackendApi.");
+        }
+    }
     void ChangeText()
     {
-        // if (mathQuestion != null && mathQuestion.ContainsKey("question"))
-        // {
-        //     displayText.text = mathQuestion["question"];
-        // }
-        // else
-        // {
-        //     displayText.text = "No question available";
-        // }
+        displayText.text = backendApiEndpoint.mathQuestion["question"];
     }
 
     // Update is called once per frame
