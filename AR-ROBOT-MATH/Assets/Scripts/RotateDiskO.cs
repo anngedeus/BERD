@@ -14,6 +14,7 @@ public class RotateDiskO : MonoBehaviour
     private int counter;
     [SerializeField]
     private float keepRotateSpeed = 10f;
+    private float rotationAngle;
 
     private void Update()
     {
@@ -32,6 +33,9 @@ public class RotateDiskO : MonoBehaviour
             else if (touch.phase == TouchPhase.Moved)
             {
                 NewTouchPosition = touch.position;
+                rotationAngle = (NewTouchPosition.z - oldTouchPosition.z) * keepRotateSpeed;
+                transform.Rotate(Vector3.up, rotationAngle, Space.World);
+                oldTouchPosition = NewTouchPosition;
             }
 
             Vector3 rotDirection = oldTouchPosition - NewTouchPosition;
