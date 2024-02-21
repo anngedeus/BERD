@@ -37,7 +37,7 @@ namespace Backend
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MathProblems API V1");
+                    c.SwaggerEndpoint("https://berdbackend.azurewebsites.net", "MathProblems"); // Define the Swagger endpoint here
                 });
             }
 

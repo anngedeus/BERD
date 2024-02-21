@@ -5,7 +5,9 @@ using System.Collections.Generic;
 
 public class BackendApi : MonoBehaviour
 {
-    public string apiUrl = "https://localhost:7132/api/math-problems";
+    public string apiUrl = "https://berdbackend.azurewebsites.net/api/math-problems";
+    public Dictionary<string, string> mathQuestion;
+    List<Dictionary<string, string>> mathProblems = new List<Dictionary<string, string>>();
 
     void Start()
     {
@@ -24,6 +26,7 @@ public class BackendApi : MonoBehaviour
 
                 Debug.Log($"Math problem received: Question: {question}, Answer: {answer}, Difficulty: {difficulty}");
             }
+            this.mathQuestion = mathProblems[0];
         }
         else
         {
@@ -78,9 +81,14 @@ public class BackendApi : MonoBehaviour
             mathProblem["difficulty"] = mathProblemObject.difficulty;
 
             mathProblems.Add(mathProblem);
-        }
 
+        }
         return mathProblems;
+    }
+
+    public Dictionary<string, string> getMathQuestion()
+    {
+        return mathQuestion;
     }
 
     [System.Serializable]

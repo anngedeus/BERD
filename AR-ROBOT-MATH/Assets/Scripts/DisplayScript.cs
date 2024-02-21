@@ -6,23 +6,43 @@ using UnityEngine.UI;
 public class DisplayScript : MonoBehaviour
 {
     public Text displayText;
-    //public string newText = "New Text String";
-    // Start is called before the first frame update
+    public Dictionary<string, string> mathQuestion = new Dictionary<string, string>();
+    public BackendApi backendApiEndpoint; // Reference to the BackendApi script
+
     void Start()
     {
-        //BackendApi backendApiEndpoint = new BackendApi();
-        //Dictionary<string, string> mathQuestion = backendApiEndpoint.GetMathProblem();
+        // Instantiate the BackendApi script dynamically
+        GameObject backendApiObject = new GameObject("BackendApiObject");
+        backendApiEndpoint = backendApiObject.AddComponent<BackendApi>();
 
+        Debug.Log(backendApiEndpoint);
+        // Start the coroutine to display the math problem
+        StartCoroutine(DisplayMathProblem());
     }
-    
+
+    IEnumerator DisplayMathProblem()
+    {
+        // Wait for BackendApi to fetch the question
+        yield return new WaitUntil(() => backendApiEndpoint.mathQuestion != null);
+
+        if (backendApiEndpoint.mathQuestion != null) 
+        {
+            string question = backendApiEndpoint.mathQuestion["question"];
+            Debug.Log("Math problem from BackendApi: " + question);
+        }
+        else 
+        {
+            Debug.LogError("No math problem received from BackendApi.");
+        }
+    }
     void ChangeText()
     {
-        //displayText.text = mathQuestion["Question"];
+        displayText.text = backendApiEndpoint.mathQuestion["question"];
     }
 
     // Update is called once per frame
     void Update()
     {
-        ChangeText();
+        // ChangeText();
     }
 }
