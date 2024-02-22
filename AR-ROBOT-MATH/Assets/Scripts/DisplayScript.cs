@@ -18,13 +18,11 @@ public class DisplayScript : MonoBehaviour
         //GameObject backendApiObject = new GameObject("BackendApiObject");
         //backendApiEndpoint = backendApiObject.AddComponent<BackendApi>();
         backendApiEndpoint = backendApiObject.GetComponent<BackendApi>();
-        //displayText = GetComponent<TextMeshProUGUI>();
+        displayText = GetComponent<TextMeshProUGUI>();
         
         Debug.Log(backendApiEndpoint);
         // Start the coroutine to display the math problem
         StartCoroutine(DisplayMathProblem());
-        //ChangeText();
-        //Debug.Log("The birds");
     }
 
     IEnumerator DisplayMathProblem()
@@ -34,6 +32,7 @@ public class DisplayScript : MonoBehaviour
 
         if (backendApiEndpoint.mathQuestion != null) 
         {
+            ChangeText();
             string question = backendApiEndpoint.mathQuestion["question"];
             Debug.Log("Math problem from BackendApi: " + question);
         }
@@ -50,6 +49,6 @@ public class DisplayScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChangeText();
+       
     }
 }
