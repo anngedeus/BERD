@@ -6,7 +6,6 @@ public class RotateDiskLeft : MonoBehaviour
     private Touch touch;
     private Vector3 oldTouchPosition;
     private Vector3 NewTouchPosition;
-    private int counter;
     public TMP_Text leftText;
     private int randomNumber;
     [SerializeField]
@@ -62,16 +61,16 @@ public class RotateDiskLeft : MonoBehaviour
     void RotateLeft()
     {
         transform.rotation = Quaternion.Euler(0f, 1.5f * keepRotateSpeed, 0f) * transform.rotation;
-        counter--;
-        leftText.text = counter.ToString();
+        randomNumber--;
+        leftText.text = randomNumber.ToString();
         Debug.Log("I'm decreasing");
     }
 
     void RotateRight()
     {
         transform.rotation = Quaternion.Euler(0f, -1.5f * keepRotateSpeed, 0f) * transform.rotation;
-        counter++;
-        leftText.text = counter.ToString();
+        randomNumber++;
+        leftText.text = randomNumber.ToString();
         Debug.Log("I'm increasing");
     }
 
