@@ -17,6 +17,7 @@ public class RobotSocket : MonoBehaviour
 
     void Start()
     {
+        // Start connection logic on a new thread so that main UI thread isn't blocked
         ThreadStart ts = new ThreadStart(Connection);
         thread = new Thread(ts);
         thread.Start();
@@ -41,7 +42,9 @@ public class RobotSocket : MonoBehaviour
     {
         try
         {
+            // Creates socket and ensures it's disposed of later
             using TcpClient client = new TcpClient(server, port);
+
             // Translate the passed message into ASCII and store it as a Byte array.
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
 
@@ -67,6 +70,7 @@ public class RobotSocket : MonoBehaviour
 
     void Connection()
     {
+        // On connection send some data
         SendDance();
     }
 }

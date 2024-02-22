@@ -8,7 +8,7 @@ public class DisplayScript : MonoBehaviour
     public Text displayText;
     public Dictionary<string, string> mathQuestion = new Dictionary<string, string>();
     public BackendApi backendApiEndpoint; // Reference to the BackendApi script
-    public RobotSocket robotSocketEndpoint;
+    public RobotSocket robotSocketEndpoint; 
 
     void Start()
     {
@@ -16,11 +16,13 @@ public class DisplayScript : MonoBehaviour
         GameObject backendApiObject = new GameObject("BackendApiObject");
         backendApiEndpoint = backendApiObject.AddComponent<BackendApi>();
 
+        // Creates obj that opens a connection to the robot
         GameObject robotSocketObject = new GameObject("RobotSocketObject");
         robotSocketEndpoint = robotSocketObject.AddComponent<RobotSocket>();
 
         Debug.Log(backendApiEndpoint);
         Debug.Log(robotSocketEndpoint);
+
         // Start the coroutine to display the math problem
         StartCoroutine(DisplayMathProblem());
     }
