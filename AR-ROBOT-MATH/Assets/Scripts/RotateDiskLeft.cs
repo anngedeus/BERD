@@ -1,19 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
-using UnityEngine.Experimental.XR;
-using UnityEngine.XR.ARSubsystems;
-using System;
+using TMPro;
 
-public class RotateDiskO : MonoBehaviour
+public class RotateDiskLeft : MonoBehaviour
 {
     private Touch touch;
     private Vector3 oldTouchPosition;
     private Vector3 NewTouchPosition;
-    private int counter;
+    public TMP_Text leftText;
+    private int randomNumber;
     [SerializeField]
     private float keepRotateSpeed = 10f;
+    private float rotationAngle;
+
+    private void Start()
+    {
+        RandomGenerator();
+    }
+
+    private void RandomGenerator()
+    {
+        randomNumber = Random.Range(2, 13);
+        leftText.text = randomNumber.ToString();
+    }
 
     private void Update()
     {
@@ -32,6 +40,9 @@ public class RotateDiskO : MonoBehaviour
             else if (touch.phase == TouchPhase.Moved)
             {
                 NewTouchPosition = touch.position;
+                rotationAngle = (NewTouchPosition.z - oldTouchPosition.z) * keepRotateSpeed;
+                transform.Rotate(Vector3.up, rotationAngle, Space.World);
+                oldTouchPosition = NewTouchPosition;
             }
 
             Vector3 rotDirection = oldTouchPosition - NewTouchPosition;
@@ -50,14 +61,16 @@ public class RotateDiskO : MonoBehaviour
     void RotateLeft()
     {
         transform.rotation = Quaternion.Euler(0f, 1.5f * keepRotateSpeed, 0f) * transform.rotation;
-        counter--;
+        randomNumber--;
+        leftText.text = randomNumber.ToString();
         Debug.Log("I'm decreasing");
     }
 
     void RotateRight()
     {
         transform.rotation = Quaternion.Euler(0f, -1.5f * keepRotateSpeed, 0f) * transform.rotation;
-        counter++;
+        randomNumber++;
+        leftText.text = randomNumber.ToString();
         Debug.Log("I'm increasing");
     }
 
