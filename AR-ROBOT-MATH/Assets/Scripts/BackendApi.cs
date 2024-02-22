@@ -91,7 +91,7 @@ public class BackendApi : MonoBehaviour
         return mathQuestion;
     }
 
-    public bool validateAnswer(int userAnswer)
+    public bool validateAnswer(int? multiplicantOne = null, int? multiplicantTw = null, int? userAnswer = null)
     {
         if (userAnswer == mathQuestion["answer"]) {
             return true;
