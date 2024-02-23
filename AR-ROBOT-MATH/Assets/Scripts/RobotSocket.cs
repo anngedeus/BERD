@@ -12,8 +12,7 @@ public class RobotSocket : MonoBehaviour
 {
     Thread thread;
     public int port = 25000;
-    public string server = "10.211.56.4";
-    TcpClient client;
+    public string server = "localhost"; //"10.0.2.15";
 
     void Start()
     {
@@ -54,11 +53,9 @@ public class RobotSocket : MonoBehaviour
             // Send the message to the connected TcpServer.
             stream.Write(data, 0, data.Length);
 
-            Debug.Log("Sent Data");
-
         }
         catch (ArgumentNullException e)
-        {
+        {   
             Debug.Log("ArgumentNullException: " + e);
         }
         catch (SocketException e)
