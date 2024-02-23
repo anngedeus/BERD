@@ -8,10 +8,11 @@ public class BackendApi : MonoBehaviour
     public string apiUrl = "https://berdbackend.azurewebsites.net/api/math-problems";
     public Dictionary<string, string> mathQuestion;
     List<Dictionary<string, string>> mathProblems = new List<Dictionary<string, string>>();
+    public bool isCorrect = false;
 
     void Start()
     {
-        string difficulty = "Easy";
+        string difficulty = DetermineNextDifficultyLevel();
         StartCoroutine(RetrieveMathProblem(difficulty, OnMathProblemReceived));
     }
 
@@ -69,6 +70,29 @@ public class BackendApi : MonoBehaviour
         }
     }
 
+    public string DetermineNextDifficultyLevel()
+    {
+        string difficultyLevel = "Easy";
+        if (mathQuestion != null)
+        {            
+            if ((mathQuestion["difficulty"] == "Easy" && isCorrect) ||
+                (mathQuestion["difficulty"] == "Hard" && isCorrect))
+            {
+                difficultyLevel = "Medium";
+            }
+            else if ((mathQuestion["difficulty"] == "Medium" && isCorrect) ||
+                    (mathQuestion["difficulty"] == "Hard" && isCorrect))
+            {
+                difficultyLevel = "Hard";
+            }
+            else if (mathQuestion["difficulty"] == "Medium" && !isCorrect)
+            {
+                difficultyLevel = "Easy";
+            }
+        }
+        return difficultyLevel;
+    }
+
     List<Dictionary<string, string>> ParseMathProblems(string jsonResponse)
     {
         var mathProblems = new List<Dictionary<string, string>>();
@@ -88,17 +112,21 @@ public class BackendApi : MonoBehaviour
         return mathProblems;
     }
 
+    public void RequestNewQuestion(string newDifficulty)
+    {
+        // Call RetrieveMathProblem with the new difficulty
+        StartCoroutine(RetrieveMathProblem(newDifficulty, OnMathProblemReceived));
+    }
+
     public Dictionary<string, string> getMathQuestion()
     {
         return mathQuestion;
     }
 
-    public bool validateAnswer(int? multiplicantOne = null, int? multiplicantTwo = null, int? userAnswer = null)
+    public void validateAnswer(int? multiplicantOne = null, int? multiplicantTwo = null, int? userAnswer = null)
     {
-        //    if (userAnswer == mathQuestion["answer"]) {
-        //        return true;
-        //    }
-        return true;
+        // logic to determine if the user's answer is correct
+        isCorrect = true;
     }
 
     [System.Serializable]

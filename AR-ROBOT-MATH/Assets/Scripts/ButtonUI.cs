@@ -21,26 +21,30 @@ public class ButtonUI : MonoBehaviour
         
         leftNumber = int.Parse(leftText.ToString());
         rightNumber = int.Parse(rightText.ToString());
-        isCorrect = backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
-        ChangeTextDisplay(isCorrect);
+        // isCorrect = backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
+        // ChangeTextDisplay(isCorrect);
+        backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
+        ChangeTextDisplay();
         RandomGenerator();
       
     }
-    private void ChangeTextDisplay(bool isCorrect)
+    // private void ChangeTextDisplay(bool isCorrect)
+    private void ChangeTextDisplay()
     {
-        if ((backendApiEndpoint.mathQuestion["difficulty"] == "Easy" && isCorrect == true) || (backendApiEndpoint.mathQuestion["difficulty"] == "Hard" && isCorrect == true))
-        {
-            //request medium            
-        }
-        if ((backendApiEndpoint.mathQuestion["difficulty"] == "Medium" && isCorrect == true) || (backendApiEndpoint.mathQuestion["difficulty"] == "Hard" && isCorrect == true))
-        {
-            //request hard
-        }
-        if (backendApiEndpoint.mathQuestion["difficulty"] == "Medium" && isCorrect == false) {
-            //request easy
-        }
+        // if ((backendApiEndpoint.mathQuestion["difficulty"] == "Easy" && isCorrect == true) || (backendApiEndpoint.mathQuestion["difficulty"] == "Hard" && isCorrect == true))
+        // {
+        //     //request medium            
+        // }
+        // if ((backendApiEndpoint.mathQuestion["difficulty"] == "Medium" && isCorrect == true) || (backendApiEndpoint.mathQuestion["difficulty"] == "Hard" && isCorrect == true))
+        // {
+        //     //request hard
+        // }
+        // if (backendApiEndpoint.mathQuestion["difficulty"] == "Medium" && isCorrect == false) {
+        //     //request easy
+        // }
+        string nextDifficultyLevel = backendApiEndpoint.DetermineNextDifficultyLevel();
+        backendApiEndpoint.RequestNewQuestion(nextDifficultyLevel);
 
-        
         //For changing questions based on in BGColor.GetComponent<TextMeshProUGUI>().text;
     }
 

@@ -15,10 +15,8 @@ public class DisplayScript : MonoBehaviour
 
     void Start()
     {
-        //Just made the object in the scene
+        // Just made the object in the scene
         // Instantiate the BackendApi script dynamically
-        //GameObject backendApiObject = new GameObject("BackendApiObject");
-        //backendApiEndpoint = backendApiObject.AddComponent<BackendApi>();
         backendApiEndpoint = backendApiObject.GetComponent<BackendApi>();
         displayText = GetComponent<TextMeshProUGUI>();
         
