@@ -46,7 +46,6 @@ public class RotateDiskLeft : MonoBehaviour
                     if (swipeValue < 0)
                     {
                         //Disk will rotate right
-                        //transform.Rotate(0f, 0f, -2f, Space.World);
                         transform.Rotate(Vector3.forward, swipeValue * 1.5f, Space.World);
                         randomNumber++;
                         if (randomNumber > 12)
@@ -58,7 +57,6 @@ public class RotateDiskLeft : MonoBehaviour
                     else if (swipeValue > 0)
                     {
                         //Disk will rotate left
-                        //transform.Rotate(0f, 0f, 2f, Space.World);
                         transform.Rotate(Vector3.forward, swipeValue * 1.5f, Space.World);
                         randomNumber--;
                         if (randomNumber < 2)
