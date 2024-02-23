@@ -130,12 +130,12 @@ public class BackendApi : MonoBehaviour
         if (multiplicandOne != null && multiplicandTwo != null)
         {
             int userProduct = multiplicandOne.Value * multiplicandTwo.Value;
-            isCorrect = (userProduct == mathQuestion["answer"]);
+            isCorrect = (userProduct == int.Parse(mathQuestion["answer"]));
         }
         // logic for medium/hard questions --> user sends in one multiplicand
-        else if (multiplicantOne != null) 
+        else if (multiplicandOne != null) 
         {
-            isCorrect = (multiplicantOne == mathQuestion["answer"]);
+            isCorrect = (multiplicandOne == int.Parse(mathQuestion["answer"]));
         }
         else
         {
