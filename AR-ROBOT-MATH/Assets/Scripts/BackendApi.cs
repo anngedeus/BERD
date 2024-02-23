@@ -11,7 +11,8 @@ public class BackendApi : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(RetrieveMathProblem(OnMathProblemReceived));
+        string difficulty = "Easy";
+        StartCoroutine(RetrieveMathProblem(difficulty, OnMathProblemReceived));
     }
 
     void OnMathProblemReceived(List<Dictionary<string, string>> mathProblems)
