@@ -2545,7 +2545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8679877340732652075, guid: 868a86dee0e574ccaa912ae882f6a75a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.44999993
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 8679877340732652075, guid: 868a86dee0e574ccaa912ae882f6a75a, type: 3}
       propertyPath: m_LocalScale.y
@@ -2995,3 +2995,4 @@ MonoBehaviour:
   rightText: {fileID: 773191313}
   backendApiEndpoint: {fileID: 1316006188}
   backendApiObject: {fileID: 1316006187}
+  BGColor: {fileID: 0}
