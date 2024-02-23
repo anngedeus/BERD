@@ -93,10 +93,10 @@ public class BackendApi : MonoBehaviour
 
     public bool validateAnswer(int? multiplicantOne = null, int? multiplicantTw = null, int? userAnswer = null)
     {
-        //    if (userAnswer == mathQuestion["answer"]) {
-        //        return true;
-        //    }
-        return true;
+        if (userAnswer == mathQuestion["answer"]) {
+            return true;
+        }
+        return false;
     }
 
     [System.Serializable]
