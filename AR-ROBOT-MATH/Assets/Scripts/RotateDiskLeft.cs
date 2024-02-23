@@ -39,10 +39,34 @@ public class RotateDiskLeft : MonoBehaviour
 
             else if (touch.phase == TouchPhase.Moved)
             {
-                NewTouchPosition = touch.position;
-                rotationAngle = (NewTouchPosition.z - oldTouchPosition.z) * keepRotateSpeed;
-                transform.Rotate(Vector3.up, rotationAngle, Space.World);
-                oldTouchPosition = NewTouchPosition;
+                if (isDragging)
+                {
+                    float swipeValue = touch.position.x - oldTouchPosition;
+                    if (swipeValue < 0)
+                    {
+                        //Disk will rotate right
+                        transform.Rotate(Vector3.forward, swipeValue * 1.5f, Space.World);
+                        randomNumber++;
+                        if (randomNumber > 12)
+                        {
+                            randomNumber = 2;
+                        }
+                        leftText.text = randomNumber.ToString();
+                    }
+                    else if (swipeValue > 0)
+                    {
+                        //Disk will rotate left
+                        transform.Rotate(Vector3.forward, swipeValue * 1.5f, Space.World);
+                        randomNumber--;
+                        if (randomNumber < 2)
+                        {
+                            randomNumber = 12;
+                        }
+                        leftText.text = randomNumber.ToString();
+                    }
+
+                    oldTouchPosition = touch.position.x;
+                }
             }
 
             Vector3 rotDirection = oldTouchPosition - NewTouchPosition;
