@@ -1198,7 +1198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftText: {fileID: 1293655544}
-  keepRotateSpeed: 10
 --- !u!1 &1072865597
 GameObject:
   m_ObjectHideFlags: 0
@@ -2997,4 +2996,4 @@ MonoBehaviour:
   rightText: {fileID: 773191313}
   backendApiEndpoint: {fileID: 1316006188}
   backendApiObject: {fileID: 1316006187}
-  BGColor: {fileID: 0}
+  BGColor: {fileID: 888544593}
