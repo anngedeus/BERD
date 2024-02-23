@@ -8,10 +8,12 @@ public class BackendApi : MonoBehaviour
     public string apiUrl = "https://berdbackend.azurewebsites.net/api/math-problems";
     public Dictionary<string, string> mathQuestion;
     List<Dictionary<string, string>> mathProblems = new List<Dictionary<string, string>>();
+    public bool isCorrect = false;
 
     void Start()
     {
-        StartCoroutine(RetrieveMathProblem(OnMathProblemReceived));
+        string difficulty = DetermineNextDifficultyLevel();
+        StartCoroutine(RetrieveMathProblem(difficulty, OnMathProblemReceived));
     }
 
     void OnMathProblemReceived(List<Dictionary<string, string>> mathProblems)
@@ -35,9 +37,10 @@ public class BackendApi : MonoBehaviour
     }
 
     // makes a GET request to the backend API to retrieve math problems.
-    IEnumerator RetrieveMathProblem(System.Action<List<Dictionary<string, string>>> callback)
+    IEnumerator RetrieveMathProblem(string requestedDifficulty, System.Action<List<Dictionary<string, string>>> callback)
     {
         Debug.Log("Starting...");
+        apiUrl += "?difficulty=" + UnityWebRequest.EscapeURL(requestedDifficulty);
 
         using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
         {
@@ -67,6 +70,29 @@ public class BackendApi : MonoBehaviour
         }
     }
 
+    public string DetermineNextDifficultyLevel()
+    {
+        string difficultyLevel = "Easy";
+        if (mathQuestion != null)
+        {            
+            if ((mathQuestion["difficulty"] == "Easy" && isCorrect) ||
+                (mathQuestion["difficulty"] == "Hard" && isCorrect))
+            {
+                difficultyLevel = "Medium";
+            }
+            else if ((mathQuestion["difficulty"] == "Medium" && isCorrect) ||
+                    (mathQuestion["difficulty"] == "Hard" && isCorrect))
+            {
+                difficultyLevel = "Hard";
+            }
+            else if (mathQuestion["difficulty"] == "Medium" && !isCorrect)
+            {
+                difficultyLevel = "Easy";
+            }
+        }
+        return difficultyLevel;
+    }
+
     List<Dictionary<string, string>> ParseMathProblems(string jsonResponse)
     {
         var mathProblems = new List<Dictionary<string, string>>();
@@ -86,9 +112,36 @@ public class BackendApi : MonoBehaviour
         return mathProblems;
     }
 
+    public void RequestNewQuestion(string newDifficulty)
+    {
+        // Call RetrieveMathProblem with the new difficulty
+        StartCoroutine(RetrieveMathProblem(newDifficulty, OnMathProblemReceived));
+    }
+
     public Dictionary<string, string> getMathQuestion()
     {
         return mathQuestion;
+    }
+
+    // function to determine if the user's answer is correct
+    public void validateAnswer(int? multiplicandOne = null, int? multiplicandTwo = null)
+    {
+        // logic for easy questions --> user sends in two multiplicands 
+        if (multiplicandOne != null && multiplicandTwo != null)
+        {
+            int userProduct = multiplicandOne.Value * multiplicandTwo.Value;
+            isCorrect = (userProduct == mathQuestion["answer"]);
+        }
+        // logic for medium/hard questions --> user sends in one multiplicand
+        else if (multiplicantOne != null) 
+        {
+            isCorrect = (multiplicantOne == mathQuestion["answer"]);
+        }
+        else
+        {
+            Debug.LogError("Validation failed: Multiplicants or user answer is null.");
+            isCorrect = false;
+        }
     }
 
     [System.Serializable]
