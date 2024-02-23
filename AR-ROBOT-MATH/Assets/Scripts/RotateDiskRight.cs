@@ -57,6 +57,10 @@ public class RotateDiskRight : MonoBehaviour
     void RotateLeft()
     {
         transform.rotation = Quaternion.Euler(0f, 1.5f * keepRotateSpeed, 0f) * transform.rotation;
+        if (randomNumber < 2)
+        {
+            randomNumber = 2;
+        }
         randomNumber--;
         rightText.text = randomNumber.ToString();
         Debug.Log("I'm decreasing");
@@ -65,6 +69,10 @@ public class RotateDiskRight : MonoBehaviour
     void RotateRight()
     {
         transform.rotation = Quaternion.Euler(0f, -1.5f * keepRotateSpeed, 0f) * transform.rotation;
+        if (randomNumber > 12)
+        {
+            randomNumber = 12;
+        }
         randomNumber++;
         rightText.text = randomNumber.ToString();
         Debug.Log("I'm increasing");

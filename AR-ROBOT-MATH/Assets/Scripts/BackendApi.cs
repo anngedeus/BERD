@@ -91,6 +91,14 @@ public class BackendApi : MonoBehaviour
         return mathQuestion;
     }
 
+    public bool validateAnswer(int? multiplicantOne = null, int? multiplicantTw = null, int? userAnswer = null)
+    {
+        //    if (userAnswer == mathQuestion["answer"]) {
+        //        return true;
+        //    }
+        return true;
+    }
+
     [System.Serializable]
     public class JsonObject
     {
