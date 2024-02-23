@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using System.Collections;
 /*
  *  this entire class is responsible for handling HTTP requests related to math problems
  */
@@ -21,19 +22,24 @@ namespace Backend.Controllers
 
         // responsible for etrieving information from the sql server
         [HttpGet]
-        public IActionResult GetMathProblems()
+        public IActionResult GetMathProblems(string difficulty)
         {
             List<MathProblem> mathProblems = new List<MathProblem>();
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                // SQL query to randomly retrieve math problems from the database
-                string query = "SELECT TOP 1 Question, Answer, Difficulty FROM MathProblems ORDER BY NEWID()";
+                if (difficulty == null)
+                {
+                    difficulty = "Easy";
+                }
 
+                // SQL query to randomly retrieve math problems from the database
+                string query = $"SELECT TOP 1 Question, Answer, Difficulty FROM MathProblems WHERE Difficulty = @Difficulty ORDER BY NEWID()";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@Difficulty", difficulty);
+
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())

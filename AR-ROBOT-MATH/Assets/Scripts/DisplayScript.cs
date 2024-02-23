@@ -10,14 +10,14 @@ public class DisplayScript : MonoBehaviour
     public Dictionary<string, string> mathQuestion = new Dictionary<string, string>();
     public BackendApi backendApiEndpoint; // Reference to the BackendApi script
     public GameObject backendApiObject;
+    public GameObject leftDisk;
+    public TMP_Text leftText;
     public RobotSocket robotSocketEndpoint; 
 
     void Start()
     {
-        //Just made the object in the scene
+        // Just made the object in the scene
         // Instantiate the BackendApi script dynamically
-        //GameObject backendApiObject = new GameObject("BackendApiObject");
-        //backendApiEndpoint = backendApiObject.AddComponent<BackendApi>();
 
         // Creates obj that opens a connection to the robot
         GameObject robotSocketObject = new GameObject("RobotSocketObject");
@@ -30,6 +30,14 @@ public class DisplayScript : MonoBehaviour
 
         // Start the coroutine to display the math problem
         StartCoroutine(DisplayMathProblem());
+    }
+    private void Update()
+    {
+        if (backendApiEndpoint.mathQuestion["difficulty"] != "Easy")
+        {
+            leftDisk.GetComponent<Renderer>().enabled = false;
+            leftText.text = backendApiEndpoint.mathQuestion["question"].Substring(0,1);
+        }
     }
 
     IEnumerator DisplayMathProblem()
@@ -52,10 +60,5 @@ public class DisplayScript : MonoBehaviour
     {
         displayText.text = backendApiEndpoint.mathQuestion["question"];
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
+   
 }
