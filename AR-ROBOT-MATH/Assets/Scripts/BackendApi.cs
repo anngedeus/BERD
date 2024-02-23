@@ -123,10 +123,25 @@ public class BackendApi : MonoBehaviour
         return mathQuestion;
     }
 
-    public void validateAnswer(int? multiplicantOne = null, int? multiplicantTwo = null, int? userAnswer = null)
+    // function to determine if the user's answer is correct
+    public void validateAnswer(int? multiplicandOne = null, int? multiplicandTwo = null)
     {
-        // logic to determine if the user's answer is correct
-        isCorrect = true;
+        // logic for easy questions --> user sends in two multiplicands 
+        if (multiplicandOne != null && multiplicandTwo != null)
+        {
+            int userProduct = multiplicandOne.Value * multiplicandTwo.Value;
+            isCorrect = (userProduct == mathQuestion["answer"]);
+        }
+        // logic for medium/hard questions --> user sends in one multiplicand
+        else if (multiplicantOne != null) 
+        {
+            isCorrect = (multiplicantOne == mathQuestion["answer"]);
+        }
+        else
+        {
+            Debug.LogError("Validation failed: Multiplicants or user answer is null.");
+            isCorrect = false;
+        }
     }
 
     [System.Serializable]
