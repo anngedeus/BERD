@@ -22,29 +22,18 @@ public class ButtonUI : MonoBehaviour
         leftNumber = int.Parse(leftText.ToString());
         rightNumber = int.Parse(rightText.ToString());
         isCorrect = backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
-        ChangeTextDisplay(isCorrect);
-        RandomGenerator();
-      
-    }
-    private void ChangeTextDisplay(bool isCorrect)
-    {
-        if ((backendApiEndpoint.mathQuestion["difficulty"] == "Easy" && isCorrect == true) || (backendApiEndpoint.mathQuestion["difficulty"] == "Hard" && isCorrect == true))
-        {
-            //request medium            
-        }
-        if ((backendApiEndpoint.mathQuestion["difficulty"] == "Medium" && isCorrect == true) || (backendApiEndpoint.mathQuestion["difficulty"] == "Hard" && isCorrect == true))
-        {
+        //if easy and correct || hard and incorrect
+            //request medium
+        //if medium and correct || hard and correct
             //request hard
-        }
-        if (backendApiEndpoint.mathQuestion["difficulty"] == "Medium" && isCorrect == false) {
+        //if medium and incorrect
             //request easy
-        }
-
+      
         
-        //For changing questions based on in BGColor.GetComponent<TextMeshProUGUI>().text;
+
+        RandomGenerator();
+        Debug.Log("I'm button pressed");
     }
-
-
     private void RandomGenerator()
     {
         randomNumber = Random.Range(2, 13);
