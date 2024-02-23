@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &103242591 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5390609741859882971, guid: 181fb7339b49dcd48bd258c9d658282f, type: 3}
-  m_PrefabInstance: {fileID: 689448150754336808}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &138989314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -298,7 +293,6 @@ Transform:
   - {fileID: 1674744759}
   - {fileID: 1386155271}
   - {fileID: 1778372675}
-  - {fileID: 103242591}
   m_Father: {fileID: 1757823196}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
@@ -3066,3 +3060,4 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181fb7339b49dcd48bd258c9d658282f, type: 3}
+
