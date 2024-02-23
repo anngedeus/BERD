@@ -4,12 +4,13 @@ using TMPro;
 public class RotateDiskLeft : MonoBehaviour
 {
     private Touch touch;
-    private float oldTouchPosition;
+    private Vector3 oldTouchPosition;
+    private Vector3 NewTouchPosition;
     public TMP_Text leftText;
     private int randomNumber;
-    //[SerializeField]
-    //private float rotationAngle;
-    private bool isDragging = false;
+    [SerializeField]
+    private float keepRotateSpeed = 10f;
+    private float rotationAngle;
 
     private void Start()
     {
@@ -26,7 +27,6 @@ public class RotateDiskLeft : MonoBehaviour
     {
         RotateThings();
     }
-
     private void RotateThings()
     {
         if (Input.touchCount > 0)
@@ -34,8 +34,7 @@ public class RotateDiskLeft : MonoBehaviour
             touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                oldTouchPosition = touch.position.x;
-                isDragging = true;
+                oldTouchPosition = touch.position;
             }
 
             else if (touch.phase == TouchPhase.Moved)
@@ -70,10 +69,33 @@ public class RotateDiskLeft : MonoBehaviour
                 }
             }
 
-            else if (touch.phase == TouchPhase.Moved)
+            Vector3 rotDirection = oldTouchPosition - NewTouchPosition;
+            Debug.Log(rotDirection);
+            if (rotDirection.z < 0)
             {
-                isDragging = false;
+                RotateRight();
+            }
+            else if (rotDirection.z > 0)
+            {
+                RotateLeft();
             }
         }
     }
+
+    void RotateLeft()
+    {
+        transform.rotation = Quaternion.Euler(0f, 1.5f * keepRotateSpeed, 0f) * transform.rotation;
+        randomNumber--;
+        leftText.text = randomNumber.ToString();
+        Debug.Log("I'm decreasing");
+    }
+
+    void RotateRight()
+    {
+        transform.rotation = Quaternion.Euler(0f, -1.5f * keepRotateSpeed, 0f) * transform.rotation;
+        randomNumber++;
+        leftText.text = randomNumber.ToString();
+        Debug.Log("I'm increasing");
+    }
+
 }
