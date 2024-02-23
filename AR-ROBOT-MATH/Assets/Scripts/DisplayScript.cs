@@ -28,7 +28,9 @@ public class DisplayScript : MonoBehaviour
     {
         if (backendApiEndpoint.mathQuestion["difficulty"] != "Easy")
         {
-            leftDisk.GetComponent<Renderer>().enabled = false;
+            leftDisk.GetComponent<RotateDiskLeft>().enabled = false;
+            leftDisk.GetComponent<Material>().color = Color.grey;
+            //leftDisk.GetComponent<Renderer>().enabled = false;
             leftText.text = backendApiEndpoint.mathQuestion["question"].Substring(0,1);
         }
     }
