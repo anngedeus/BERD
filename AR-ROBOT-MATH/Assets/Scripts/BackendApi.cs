@@ -35,9 +35,10 @@ public class BackendApi : MonoBehaviour
     }
 
     // makes a GET request to the backend API to retrieve math problems.
-    IEnumerator RetrieveMathProblem(System.Action<List<Dictionary<string, string>>> callback)
+    IEnumerator RetrieveMathProblem(string requestedDifficulty, System.Action<List<Dictionary<string, string>>> callback)
     {
         Debug.Log("Starting...");
+        apiUrl += "?difficulty=" + UnityWebRequest.EscapeURL(requestedDifficulty);
 
         using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
         {
@@ -91,11 +92,13 @@ public class BackendApi : MonoBehaviour
         return mathQuestion;
     }
 
-    public bool validateAnswer(int? multiplicantOne = null, int? multiplicantTw = null, int? userAnswer = null)
+    public bool validateAnswer(int? multiplicantOne = null, int? multiplicantTwo = null, int? userAnswer = null)
     {
-        if (userAnswer == mathQuestion["answer"]) {
-            return true;
-        }
+        // int userAnswer = multiplicantOne * multiplicantTwo;
+
+        // if (userAnswer != null && userAnswer == mathQuestion["answer"]) {
+        //     return true;
+        // }
         return false;
     }
 
