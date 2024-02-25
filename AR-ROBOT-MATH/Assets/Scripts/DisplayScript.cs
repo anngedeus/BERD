@@ -15,10 +15,8 @@ public class DisplayScript : MonoBehaviour
 
     void Start()
     {
-        //Just made the object in the scene
+        // Just made the object in the scene
         // Instantiate the BackendApi script dynamically
-        //GameObject backendApiObject = new GameObject("BackendApiObject");
-        //backendApiEndpoint = backendApiObject.AddComponent<BackendApi>();
         backendApiEndpoint = backendApiObject.GetComponent<BackendApi>();
         displayText = GetComponent<TextMeshProUGUI>();
         
@@ -30,7 +28,9 @@ public class DisplayScript : MonoBehaviour
     {
         if (backendApiEndpoint.mathQuestion["difficulty"] != "Easy")
         {
-            leftDisk.GetComponent<Renderer>().enabled = false;
+            leftDisk.GetComponent<RotateDiskLeft>().enabled = false;
+            leftDisk.GetComponent<Material>().color = Color.grey;
+            //leftDisk.GetComponent<Renderer>().enabled = false;
             leftText.text = backendApiEndpoint.mathQuestion["question"].Substring(0,1);
         }
     }
