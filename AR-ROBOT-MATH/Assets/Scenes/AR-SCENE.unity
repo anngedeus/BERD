@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571337, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4127,6 +4127,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 568378601}
     m_Modifications:
+    - target: {fileID: 1557610579093255976, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8386175
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557610579093255976, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.33414403
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557610579093255976, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9748427
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648251240223823034, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
+      propertyPath: m_Color.b
+      value: 0.2799025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648251240223823034, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648251240223823034, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
+      propertyPath: m_Color.r
+      value: 0.2640322
+      objectReference: {fileID: 0}
     - target: {fileID: 3284184179235276318, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
       propertyPath: m_Name
       value: ProgressBar

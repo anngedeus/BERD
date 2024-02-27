@@ -79,12 +79,13 @@ public class SubmitButton : MonoBehaviour
         }
         else if (currentAudioIndex >= audioClips.Length)
         {
+            songNum = songNum + 1;
             if (songNum >= songNames.Length)
             {
-                songNum = -1;
+                songNum = 0;
             }
-
-            audioClips = Resources.LoadAll<AudioClip>("Beats/Beat Stems (Mashed)/" + songNames[songNum++]);
+            
+            audioClips = Resources.LoadAll<AudioClip>("Beats/Beat Stems (Mashed)/" + songNames[songNum]);
             currentAudioIndex = -1;
             ChangeStem();
         }
