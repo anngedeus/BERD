@@ -44,8 +44,12 @@ public class SubmitButton : MonoBehaviour
     public void ButtonPressed()
     {
         backendApiEndpoint = backendApiObject.GetComponent<BackendApi>();
-        leftNumber = int.Parse(leftText.ToString());
-        rightNumber = int.Parse(rightText.ToString());
+        int.TryParse(leftText.text, out leftNumber);
+        int.TryParse(rightText.text, out rightNumber);
+        Debug.Log("LeftText: " + leftNumber);
+        Debug.Log("RightText: " + rightNumber);
+        //leftNumber = int.Parse(leftText.ToString().Trim());  
+        //rightNumber = int.Parse(rightText.ToString().Trim());
         backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
         ChangeTextDisplay();
         RandomGenerator();
