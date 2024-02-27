@@ -1,7 +1,10 @@
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Net;
+using System.Net.Sockets;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class BackendApi : MonoBehaviour
 {
@@ -142,6 +145,45 @@ public class BackendApi : MonoBehaviour
             Debug.LogError("Validation failed: Multiplicants or user answer is null.");
             isCorrect = false;
         }
+
+        // Initialize a message for the robot to recieve over the socket based on the answer
+        String message = isCorrect ? "ans/correct" : "ans/incorrect";
+        StartCoroutine(RobotMessage(message));
+    }
+
+    public IEnumerator RobotMessage(String message)
+    {
+        int port = 25000;
+        string server = "localhost"; //"10.0.2.15";
+
+        using (TcpClient client = new TcpClient(server, port)) {
+            yield return client;
+
+            try
+            {
+                
+                // Creates socket and ensures it's disposed of later
+
+                // Translate the passed message into ASCII and store it as a Byte array.
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+
+                // Get a client stream for reading and writing.
+                NetworkStream stream = client.GetStream();
+
+                // Send the message to the connected TcpServer.
+                stream.Write(data, 0, data.Length);
+
+            }
+            catch (ArgumentNullException e)
+            {
+                Debug.Log("ArgumentNullException: " + e);
+            }
+            catch (SocketException e)
+            {
+                Debug.Log("SocketException: " + e);
+            }
+        }
+
     }
 
     [System.Serializable]

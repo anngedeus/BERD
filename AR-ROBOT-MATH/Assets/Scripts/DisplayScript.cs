@@ -12,15 +12,22 @@ public class DisplayScript : MonoBehaviour
     public GameObject backendApiObject;
     public GameObject leftDisk;
     public TMP_Text leftText;
+    //public RobotSocket robotSocketEndpoint; 
 
     void Start()
     {
         // Just made the object in the scene
         // Instantiate the BackendApi script dynamically
+
+        // Creates obj that opens a connection to the robot
+        //GameObject robotSocketObject = new GameObject("RobotSocketObject");
+        //robotSocketEndpoint = robotSocketObject.AddComponent<RobotSocket>();
         backendApiEndpoint = backendApiObject.GetComponent<BackendApi>();
         displayText = GetComponent<TextMeshProUGUI>();
         
         Debug.Log(backendApiEndpoint);
+        //Debug.Log(robotSocketEndpoint);
+
         // Start the coroutine to display the math problem
         StartCoroutine(DisplayMathProblem());
     }
