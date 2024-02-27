@@ -3,7 +3,7 @@ using TMPro;
 
 public class RotateDiskLeft : MonoBehaviour
 {
-    private Touch touch;
+    //private Touch touch;
     private float oldTouchPosition;
     public TMP_Text leftText;
     private int randomNumber;
@@ -29,49 +29,52 @@ public class RotateDiskLeft : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
-            {
-                oldTouchPosition = touch.position.x;
-                isDragging = true;
-            }
+            Touch touch = Input.GetTouch(0);
+            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+            RaycastHit hit;
 
-            else if (touch.phase == TouchPhase.Moved)
+            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
             {
-                if (isDragging)
+                // Touch occurred on this object
+                switch (touch.phase)
                 {
-                    float swipeValue = touch.position.x - oldTouchPosition;
-                    if (swipeValue < 0)
-                    {
-                        //Disk will rotate right
-                        transform.Rotate(Vector3.forward, swipeValue * 1.5f, Space.World);
-                        randomNumber++;
-                        if (randomNumber > 12)
-                        {
-                            randomNumber = 2;
-                        }
-                        leftText.text = randomNumber.ToString();
-                    }
-                    else if (swipeValue > 0)
-                    {
-                        //Disk will rotate left
-                        transform.Rotate(Vector3.forward, swipeValue * 1.5f, Space.World);
-                        randomNumber--;
-                        if (randomNumber < 2)
-                        {
-                            randomNumber = 12;
-                        }
-                        leftText.text = randomNumber.ToString();
-                    }
+                    case TouchPhase.Began:
+                        oldTouchPosition = touch.position.x;
+                        isDragging = true;
+                        break;
 
-                    oldTouchPosition = touch.position.x;
+                    case TouchPhase.Moved:
+                        if (isDragging)
+                        {
+                            Vector2 swipeValue = new Vector2(touch.position.x - oldTouchPosition, 0f);
+                            float rotationSpeed = 1.5f; // Adjust as needed
+                            float rotationAmount = swipeValue.x * rotationSpeed;
+                            transform.Rotate(Vector3.forward, rotationAmount, Space.World);
+
+                            // Update the random number based on rotation direction
+                            if (swipeValue.x < 0)
+                                randomNumber++;
+                            else if (swipeValue.x > 0)
+                                randomNumber--;
+
+                            // Ensure the number stays within range
+                            if (randomNumber > 12)
+                                randomNumber = 2;
+                            else if (randomNumber < 2)
+                                randomNumber = 12;
+
+                            leftText.text = randomNumber.ToString();
+                            oldTouchPosition = touch.position.x;
+                        }
+                        break;
+
+                    case TouchPhase.Ended:
+                    case TouchPhase.Canceled:
+                        isDragging = false;
+                        break;
                 }
             }
-
-            else if (touch.phase == TouchPhase.Moved)
-            {
-                isDragging = false;
-            }
-        }
+        
+    }
     }
 }
