@@ -7,8 +7,6 @@ public class RotateDiskLeft : MonoBehaviour
     private float oldTouchPosition;
     public TMP_Text leftText;
     private int randomNumber;
-    //[SerializeField]
-    //private float rotationAngle;
     private bool isDragging = false;
 
     private void Start()
