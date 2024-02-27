@@ -12,13 +12,33 @@ public class SubmitButton : MonoBehaviour
     public BackendApi backendApiEndpoint;
     public GameObject backendApiObject;
     public GameObject BGColor;
-    public int stemNumber = 0;
-    public string currentSong = "Beat 1 - Peaches & Eggplants";
     public AudioSource audioSource;
+    private string[] songNames;
+    private AudioClip[] audioClips;
+    private int songNum = 0;
+    private int currentAudioIndex = 0;
 
     private void Start()
     {
-        ChangeStem();
+        songNames = new string[]
+        {
+            "Beat 1 - Peaches & Eggplants",
+            "Beat 2 - Turks & Caicos",
+            "Beat 3 - Hvn on Earth",
+            "Beat 4 - Back to the Moon"
+        };
+
+        audioClips = Resources.LoadAll<AudioClip>("Beats/Beat Stems (Mashed)/" + songNames[songNum]);
+        if (audioClips.Length > 0)
+        {
+            audioSource.clip = audioClips[currentAudioIndex];
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("No audio clips found in the specified path.");
+        }
+       
     }
 
     public void ButtonPressed()
@@ -50,24 +70,23 @@ public class SubmitButton : MonoBehaviour
 
     private void ChangeStem()
     {
-        stemNumber++;
-        string audioFilePath = "../Beats/Beat Stems/Beat Stems (Mashed)/" + currentSong + "/Part " + stemNumber;
-        // Load the audio clip from the specified file path
-        AudioClip audioClip = Resources.Load<AudioClip>(audioFilePath);
-
-        if (audioClip != null)
+        currentAudioIndex = (currentAudioIndex + 1);
+        if (audioClips != null && audioClips.Length > 0 && currentAudioIndex < audioClips.Length)
         {
-            // Change the audio clip to the loaded one
-            audioSource.clip = audioClip;
-
-            // Play the audio
+            //currentAudioIndex = (currentAudioIndex + 1) % audioClips.Length;
+            audioSource.clip = audioClips[currentAudioIndex];
             audioSource.Play();
         }
-        else
+        else if (currentAudioIndex >= audioClips.Length)
         {
-            Debug.LogWarning("Failed to load audio clip: " + audioFilePath);
-            stemNumber = 0;
-            currentSong = "Beat 2 - Turks & Caicos";
+            if (songNum >= songNames.Length)
+            {
+                songNum = -1;
+            }
+
+            audioClips = Resources.LoadAll<AudioClip>("Beats/Beat Stems (Mashed)/" + songNames[songNum++]);
+            currentAudioIndex = -1;
+            ChangeStem();
         }
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571337, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1798,7 +1798,7 @@ PrefabInstance:
       objectReference: {fileID: 629749848}
     - target: {fileID: 7375584746510494907, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
       propertyPath: m_Value
-      value: 0.72
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 7375584746510494907, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
       propertyPath: m_MaxValue
@@ -1929,11 +1929,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2060472885820406732, guid: 9b98e2b92ee641d4383095300aaf0556, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2060472885820406732, guid: 9b98e2b92ee641d4383095300aaf0556, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2060472885820406732, guid: 9b98e2b92ee641d4383095300aaf0556, type: 3}
       propertyPath: m_LocalScale.x
@@ -1981,7 +1981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2060472885820406732, guid: 9b98e2b92ee641d4383095300aaf0556, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.271
+      value: -0.28
       objectReference: {fileID: 0}
     - target: {fileID: 2060472885820406732, guid: 9b98e2b92ee641d4383095300aaf0556, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2159,7 +2159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2656222475967163619, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.052
+      value: -0.037
       objectReference: {fileID: 0}
     - target: {fileID: 2656222475967163619, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2203,7 +2203,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 79821dddaf34c604c83e65e535d57b90, type: 3}
     - target: {fileID: 7375584746510494907, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 0.526
       objectReference: {fileID: 0}
     - target: {fileID: 7375584746510494907, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
       propertyPath: m_Transition
@@ -2304,11 +2304,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 79821dddaf34c604c83e65e535d57b90, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0
-  m_Pitch: 0.72
-  Loop: 0
+  m_Volume: 0.526
+  m_Pitch: 1.01
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2758,7 +2758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7931906737020084512, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7931906737020084512, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2810,7 +2810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7931906737020084512, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.274
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 7931906737020084512, guid: 299f9d6ba6d45914885b1a447e30a77b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2854,7 +2854,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightText: {fileID: 773191313}
-  keepRotateSpeed: 10
 --- !u!1 &2058942633
 GameObject:
   m_ObjectHideFlags: 0
@@ -3006,3 +3005,4 @@ MonoBehaviour:
   backendApiEndpoint: {fileID: 1316006188}
   backendApiObject: {fileID: 1316006187}
   BGColor: {fileID: 888544593}
+  audioSource: {fileID: 1674744763}
