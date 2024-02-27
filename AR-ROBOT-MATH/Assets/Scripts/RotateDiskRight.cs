@@ -4,12 +4,10 @@ using TMPro;
 public class RotateDiskRight : MonoBehaviour
 {
     private Touch touch;
-    private Vector3 oldTouchPosition;
-    private Vector3 NewTouchPosition;
+    private float oldTouchPosition;
     public TMP_Text rightText;
     private int randomNumber;
-    [SerializeField]
-    private float keepRotateSpeed = 10f;
+    private bool isDragging = false;
 
     private void Start()
     {
@@ -33,49 +31,46 @@ public class RotateDiskRight : MonoBehaviour
             touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                oldTouchPosition = touch.position;
+                oldTouchPosition = touch.position.x;
+                isDragging = true;
             }
 
             else if (touch.phase == TouchPhase.Moved)
             {
-                NewTouchPosition = touch.position;
+                if (isDragging)
+                {
+                    float swipeValue = touch.position.x - oldTouchPosition;
+                    if (swipeValue < 0)
+                    {
+                        //Disk will rotate right
+                        transform.Rotate(Vector3.forward, swipeValue * 1.5f, Space.World);
+                        randomNumber++;
+                        if (randomNumber > 12)
+                        {
+                            randomNumber = 2;
+                        }
+                        rightText.text = randomNumber.ToString();
+                    }
+                    else if (swipeValue > 0)
+                    {
+                        //Disk will rotate left
+                        transform.Rotate(Vector3.forward, swipeValue * 1.5f, Space.World);
+                        randomNumber--;
+                        if (randomNumber < 2)
+                        {
+                            randomNumber = 12;
+                        }
+                        rightText.text = randomNumber.ToString();
+                    }
+
+                    oldTouchPosition = touch.position.x;
+                }
             }
 
-            Vector3 rotDirection = oldTouchPosition - NewTouchPosition;
-            Debug.Log(rotDirection);
-            if (rotDirection.z < 0)
+            else if (touch.phase == TouchPhase.Moved)
             {
-                RotateRight();
-            }
-            else if (rotDirection.z > 0)
-            {
-                RotateLeft();
+                isDragging = false;
             }
         }
     }
-
-    void RotateLeft()
-    {
-        transform.rotation = Quaternion.Euler(0f, 1.5f * keepRotateSpeed, 0f) * transform.rotation;
-        if (randomNumber < 2)
-        {
-            randomNumber = 2;
-        }
-        randomNumber--;
-        rightText.text = randomNumber.ToString();
-        Debug.Log("I'm decreasing");
-    }
-
-    void RotateRight()
-    {
-        transform.rotation = Quaternion.Euler(0f, -1.5f * keepRotateSpeed, 0f) * transform.rotation;
-        if (randomNumber > 12)
-        {
-            randomNumber = 12;
-        }
-        randomNumber++;
-        rightText.text = randomNumber.ToString();
-        Debug.Log("I'm increasing");
-    }
-
 }
