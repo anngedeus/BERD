@@ -43,7 +43,13 @@ public class BackendApi : MonoBehaviour
     IEnumerator RetrieveMathProblem(string requestedDifficulty, System.Action<List<Dictionary<string, string>>> callback)
     {
         Debug.Log("Starting...");
-        apiUrl += "?difficulty=" + UnityWebRequest.EscapeURL(requestedDifficulty);
+        Debug.Log("Requested difficulty is: " + requestedDifficulty);
+        // apiUrl += "?difficulty=" + UnityWebRequest.EscapeURL(requestedDifficulty);
+        
+        string separator = apiUrl.Contains("?") ? "&" : "?";
+        apiUrl += separator + "difficulty=" + UnityWebRequest.EscapeURL(requestedDifficulty);
+
+        Debug.Log(apiUrl);
 
         using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
         {
@@ -71,6 +77,7 @@ public class BackendApi : MonoBehaviour
                 }
             }
         }
+        apiUrl = "https://berdbackend.azurewebsites.net/api/math-problems";
     }
 
     public string DetermineNextDifficultyLevel()
