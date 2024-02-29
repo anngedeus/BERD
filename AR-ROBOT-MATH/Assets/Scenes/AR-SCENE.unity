@@ -2594,6 +2594,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 8537853831635690179, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537853831635690179, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537853831635690179, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8728725937531491523, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
       propertyPath: m_Name
       value: SliderR
@@ -3686,7 +3698,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8537853831635690179, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537853831635690179, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537853831635690179, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537853831635690179, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537853831635690179, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537853831635690179, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8728725937531491523, guid: b4dc83e3d23f9424baaf1dcd929d133f, type: 3}
       propertyPath: m_Name
@@ -4638,4 +4670,4 @@ MonoBehaviour:
   backendApiEndpoint: {fileID: 1316006188}
   backendApiObject: {fileID: 1316006187}
   BGColor: {fileID: 888544593}
-  audioSource: {fileID: 1674744763}
+  audioSource: {fileID: 0}

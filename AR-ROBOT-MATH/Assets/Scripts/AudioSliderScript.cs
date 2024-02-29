@@ -6,20 +6,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Slider))]
 public class AudioSliderScript : MonoBehaviour
 {
-    /*public AudioSource audioSource;
-    public Slider volumeSlider;
-    // Start is called before the first frame update
-    private void Start()
-    {
-
-    }
-
-     //Update is called once per frame
-    void Update()
-    {
-        audioSource.volume = volumeSlider.value;
-    }*/
-  
     public enum AudioParameter
     {
         Volume,
