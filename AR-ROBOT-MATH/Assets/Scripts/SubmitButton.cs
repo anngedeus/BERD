@@ -8,7 +8,8 @@ public class SubmitButton : MonoBehaviour
     public TMP_Text rightText;
     private int leftNumber;
     private int rightNumber;
-    private int randomNumber;
+    private int randomNumberRight;
+    private int randomNumberLeft;
     public BackendApi backendApiEndpoint;
     public GameObject backendApiObject;
     public GameObject BGColor;
@@ -48,8 +49,6 @@ public class SubmitButton : MonoBehaviour
         int.TryParse(rightText.text, out rightNumber);
         Debug.Log("LeftText: " + leftNumber);
         Debug.Log("RightText: " + rightNumber);
-        //leftNumber = int.Parse(leftText.ToString().Trim());  
-        //rightNumber = int.Parse(rightText.ToString().Trim());
         backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
         ChangeTextDisplay();
         RandomGenerator();
@@ -70,9 +69,10 @@ public class SubmitButton : MonoBehaviour
 
     private void RandomGenerator()
     {
-        randomNumber = Random.Range(2, 13);
-        leftText.text = randomNumber.ToString();
-        rightText.text = randomNumber.ToString();
+        randomNumberLeft = Random.Range(2, 13);
+        randomNumberRight = Random.Range(2, 13); 
+        leftText.text = randomNumberLeft.ToString();
+        rightText.text = randomNumberRight.ToString();
     }
 
     private void ChangeStem()
