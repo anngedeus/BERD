@@ -38,7 +38,7 @@ public class SubmitButton : MonoBehaviour
         {
             Debug.LogWarning("No audio clips found in the specified path.");
         }
-       
+
     }
 
     public void ButtonPressed()
@@ -53,13 +53,16 @@ public class SubmitButton : MonoBehaviour
         backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
         ChangeTextDisplay();
         RandomGenerator();
-        ChangeStem();
     }
 
     private void ChangeTextDisplay()
     {
 
         string nextDifficultyLevel = backendApiEndpoint.DetermineNextDifficultyLevel();
+        if ((backendApiEndpoint.mathQuestion["difficulty"] == "Easy" && nextDifficultyLevel == "Medium") || nextDifficultyLevel == "Hard")
+        {
+            ChangeStem();
+        }
         backendApiEndpoint.RequestNewQuestion(nextDifficultyLevel);
         BGColor.GetComponent<TextMeshProUGUI>().text = backendApiEndpoint.mathQuestion["question"];
     }
@@ -88,7 +91,7 @@ public class SubmitButton : MonoBehaviour
             {
                 songNum = 0;
             }
-            
+
             audioClips = Resources.LoadAll<AudioClip>("Beats/Beat Stems (Mashed)/" + songNames[songNum]);
             currentAudioIndex = -1;
             ChangeStem();

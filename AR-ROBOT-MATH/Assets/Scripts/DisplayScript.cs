@@ -35,11 +35,12 @@ public class DisplayScript : MonoBehaviour
     {
         if (backendApiEndpoint.mathQuestion["difficulty"] != "Easy")
         {
-            //leftDisk.GetComponent<RotateDiskLeft>().enabled = false;
+            leftDisk.GetComponent<RotateDiskLeft>().enabled = false;
             //leftDisk.GetComponent<Material>().color = Color.grey;
-            leftDisk.GetComponent<Renderer>().enabled = false;
+            //leftDisk.GetComponent<Renderer>().enabled = false;
             leftText.text = backendApiEndpoint.mathQuestion["question"].Substring(0,1);
         }
+        ChangeText();
     }
 
     IEnumerator DisplayMathProblem()
@@ -49,7 +50,6 @@ public class DisplayScript : MonoBehaviour
 
         if (backendApiEndpoint.mathQuestion != null) 
         {
-            ChangeText();
             string question = backendApiEndpoint.mathQuestion["question"];
             Debug.Log("Math problem from BackendApi: " + question);
         }
