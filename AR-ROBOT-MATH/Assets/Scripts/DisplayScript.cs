@@ -40,6 +40,10 @@ public class DisplayScript : MonoBehaviour
             //leftDisk.GetComponent<Renderer>().enabled = false;
             leftText.text = backendApiEndpoint.mathQuestion["question"].Substring(0,1);
         }
+        else
+        {
+            leftDisk.GetComponent<RotateDiskLeft>().enabled = true;
+        }
         ChangeText();
     }
 
