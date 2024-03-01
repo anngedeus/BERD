@@ -3,7 +3,6 @@ using TMPro;
 
 public class RotateDiskLeft : MonoBehaviour
 {
-    //private Touch touch;
     private Vector2 oldTouchPosition;
     public TMP_Text leftText;
     private int randomNumber;
@@ -48,8 +47,7 @@ public class RotateDiskLeft : MonoBehaviour
                         {
                             Vector2 swipeValue = touch.position - oldTouchPosition;
                             float rotationSpeed = 0.5f;
-                            Debug.Log(touch.position);
-                            //keeping the disk rotating in same direction when it crosses y axis
+                            //keeping the disk rotating in same direction when it crosses halfway point of disk
                             bool aboveHalfway = touch.position.y > 700f;
 
                             //transform.Rotate(Vector3.forward, rotationAmount, Space.World);

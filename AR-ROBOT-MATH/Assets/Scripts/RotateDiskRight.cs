@@ -3,7 +3,6 @@ using TMPro;
 
 public class RotateDiskRight : MonoBehaviour
 {
-    //private Touch touch;
     private float oldTouchPosition;
     public TMP_Text rightText;
     private int randomNumber;
