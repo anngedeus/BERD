@@ -4,7 +4,7 @@ using TMPro;
 public class RotateDiskLeft : MonoBehaviour
 {
     //private Touch touch;
-    private float oldTouchPosition;
+    private Vector2 oldTouchPosition;
     public TMP_Text leftText;
     private int randomNumber;
     private bool isDragging = false;
@@ -39,22 +39,30 @@ public class RotateDiskLeft : MonoBehaviour
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
-                        oldTouchPosition = touch.position.x;
+                        oldTouchPosition = touch.position;
                         isDragging = true;
                         break;
 
                     case TouchPhase.Moved:
                         if (isDragging)
                         {
-                            Vector2 swipeValue = new Vector2(touch.position.x - oldTouchPosition, 0f);
-                            float rotationSpeed = 1.5f; // Adjust as needed
-                            float rotationAmount = swipeValue.x * rotationSpeed;
-                            transform.Rotate(Vector3.forward, rotationAmount, Space.World);
+                            Vector2 swipeValue = touch.position - oldTouchPosition;
+                            float rotationSpeed = 0.5f;
+                            Debug.Log(touch.position);
+                            //keeping the disk rotating in same direction when it crosses y axis
+                            bool aboveHalfway = touch.position.y > 700f;
+
+                            //transform.Rotate(Vector3.forward, rotationAmount, Space.World);
+                            float rotationAmountX = swipeValue.x * rotationSpeed * (aboveHalfway ? -1f : 1f);
+
+                            // Rotate the object around x axis
+                            transform.Rotate(Vector3.forward, rotationAmountX, Space.World);
+
 
                             // Update the random number based on rotation direction
-                            if (swipeValue.x < 0)
+                            if (rotationAmountX < -10)
                                 randomNumber++;
-                            else if (swipeValue.x > 0)
+                            else if (rotationAmountX > 10)
                                 randomNumber--;
 
                             // Ensure the number stays within range
@@ -64,7 +72,7 @@ public class RotateDiskLeft : MonoBehaviour
                                 randomNumber = 12;
 
                             leftText.text = randomNumber.ToString();
-                            oldTouchPosition = touch.position.x;
+                            oldTouchPosition = touch.position;
                         }
                         break;
 
@@ -75,6 +83,6 @@ public class RotateDiskLeft : MonoBehaviour
                 }
             }
         
-    }
+        }
     }
 }
