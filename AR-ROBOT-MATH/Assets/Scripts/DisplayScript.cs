@@ -12,6 +12,7 @@ public class DisplayScript : MonoBehaviour
     public GameObject backendApiObject;
     public GameObject leftDisk;
     public TMP_Text leftText;
+    public GameObject diskLocked;
     //public RobotSocket robotSocketEndpoint; 
 
     void Start()
@@ -35,14 +36,15 @@ public class DisplayScript : MonoBehaviour
     {
         if (backendApiEndpoint.mathQuestion["difficulty"] != "Easy")
         {
+            //locking the disk and displaying red circle
             leftDisk.GetComponent<RotateDiskLeft>().enabled = false;
-            //leftDisk.GetComponent<Material>().color = Color.grey;
-            //leftDisk.GetComponent<Renderer>().enabled = false;
+            diskLocked.GetComponent<Image>().enabled = true;
             leftText.text = backendApiEndpoint.mathQuestion["question"].Substring(0,1);
         }
         else
         {
             leftDisk.GetComponent<RotateDiskLeft>().enabled = true;
+            diskLocked.GetComponent<Image>().enabled = false;
         }
         ChangeText();
     }
