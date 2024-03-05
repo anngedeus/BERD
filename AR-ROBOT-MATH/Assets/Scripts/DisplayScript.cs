@@ -39,7 +39,16 @@ public class DisplayScript : MonoBehaviour
             //locking the disk and displaying red circle
             leftDisk.GetComponent<RotateDiskLeft>().enabled = false;
             diskLocked.GetComponent<Image>().enabled = true;
-            leftText.text = backendApiEndpoint.mathQuestion["question"].Substring(0,1);
+            //checking if the multiplier is 1 or 2 digits
+            if (backendApiEndpoint.mathQuestion["question"].Substring(0,1) == "1")
+            {
+                leftText.text = backendApiEndpoint.mathQuestion["question"].Substring(0, 2);
+            }
+            else
+            {
+                leftText.text = backendApiEndpoint.mathQuestion["question"].Substring(0, 1);
+            }
+            
         }
         else
         {
