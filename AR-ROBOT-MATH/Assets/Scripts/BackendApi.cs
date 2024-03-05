@@ -86,7 +86,7 @@ public class BackendApi : MonoBehaviour
         if (mathQuestion != null)
         {            
             if ((mathQuestion["difficulty"] == "Easy" && isCorrect) ||
-                (mathQuestion["difficulty"] == "Hard" && isCorrect))
+                (mathQuestion["difficulty"] == "Hard" && !isCorrect))
             {
                 difficultyLevel = "Medium";
             }

@@ -1639,7 +1639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40437fb33ccf54708900f5908964c2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftText: {fileID: 1293655544}
+  diskText: {fileID: 1293655544}
 --- !u!1 &1072865597
 GameObject:
   m_ObjectHideFlags: 0
@@ -5408,7 +5408,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8679877340732652075, guid: 868a86dee0e574ccaa912ae882f6a75a, type: 3}
   m_PrefabInstance: {fileID: 138989314}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1964865897
+--- !u!114 &1964865901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5417,10 +5417,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1964865891}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b86720ba4d7142fbbe0ad7c0703b637, type: 3}
+  m_Script: {fileID: 11500000, guid: 40437fb33ccf54708900f5908964c2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightText: {fileID: 773191313}
+  diskText: {fileID: 773191313}
 --- !u!1 &1991558548
 GameObject:
   m_ObjectHideFlags: 0
