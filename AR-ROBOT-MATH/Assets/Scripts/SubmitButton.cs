@@ -35,16 +35,6 @@ public class SubmitButton : MonoBehaviour
         };
 
         audioClips = Resources.LoadAll<AudioClip>("Beats/Beat Stems (Mashed)/" + songNames[songNum]);
-        if (audioClips.Length > 0)
-        {
-            audioSource.clip = audioClips[currentAudioIndex];
-            audioSource.Play();
-        }
-        else
-        {
-            Debug.LogWarning("No audio clips found in the specified path.");
-        }
-
     }
 
     public void ButtonPressed()
@@ -77,8 +67,11 @@ public class SubmitButton : MonoBehaviour
     private void RandomGenerator()
     {
         randomNumberLeft = Random.Range(2, 13);
-        randomNumberRight = Random.Range(2, 13); 
-        leftText.text = randomNumberLeft.ToString();
+        randomNumberRight = Random.Range(2, 13);
+        if (backendApiEndpoint.mathQuestion["difficulty"] == "Easy")
+        {
+            leftText.text = randomNumberLeft.ToString();
+        }
         rightText.text = randomNumberRight.ToString();
     }
 
