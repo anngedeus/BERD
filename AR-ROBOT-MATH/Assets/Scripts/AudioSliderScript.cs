@@ -3,25 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Slider))]
 public class AudioSliderScript : MonoBehaviour
 {
+    public enum AudioParameter
+    {
+        Volume,
+        Pitch
+    }
+
+    [SerializeField]
+    public AudioParameter parameter;
     public AudioSource audioSource;
-    public Slider volumeSlider;
-    // Start is called before the first frame update
-    void Start()
+    private Slider slider;
+
+    private void Start()
     {
-        volumeSlider.value = audioSource.volume;
+        slider = GetComponent<Slider>();
     }
 
-    public void AdjustVolume()
-    {
-        // Adjust the volume of the audio source based on the slider's value
-        audioSource.volume = volumeSlider.value;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        switch (parameter)
+        {
+            case AudioParameter.Volume:
+                audioSource.volume = slider.value;
+                break;
+            case AudioParameter.Pitch:
+                audioSource.pitch = slider.value;
+                break;
+            default:
+                Debug.LogWarning("Unhandled AudioParameter: " + parameter);
+                break;
+        }
     }
 }
