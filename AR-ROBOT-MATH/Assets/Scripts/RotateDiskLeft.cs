@@ -48,7 +48,7 @@ public class RotateDiskLeft : MonoBehaviour
                             Vector2 swipeValue = touch.position - oldTouchPosition;
                             float rotationSpeed = 0.5f;
                             //keeping the disk rotating in same direction when it crosses halfway point of disk
-                            bool aboveHalfway = touch.position.y > 700f;
+                            bool aboveHalfway = touch.position.y > 770f;
 
                             //transform.Rotate(Vector3.forward, rotationAmount, Space.World);
                             float rotationAmountX = swipeValue.x * rotationSpeed * (aboveHalfway ? -1f : 1f);
@@ -58,9 +58,9 @@ public class RotateDiskLeft : MonoBehaviour
 
 
                             // Update the random number based on rotation direction
-                            if (rotationAmountX < -10)
+                            if (rotationAmountX < -5)
                                 randomNumber++;
-                            else if (rotationAmountX > 10)
+                            else if (rotationAmountX > 5)
                                 randomNumber--;
 
                             // Ensure the number stays within range
