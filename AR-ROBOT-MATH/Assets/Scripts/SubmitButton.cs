@@ -44,7 +44,15 @@ public class SubmitButton : MonoBehaviour
         int.TryParse(rightText.text, out rightNumber);
         Debug.Log("LeftText: " + leftNumber);
         Debug.Log("RightText: " + rightNumber);
-        backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
+        if (backendApiEndpoint.mathQuestion["difficulty"] == "Hard")
+        {
+            backendApiEndpoint.validateAnswer(rightNumber, null);
+        }
+        else
+        {
+            backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
+        }
+       
         ChangeTextDisplay();
         RandomGenerator();
     }

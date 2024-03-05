@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class RotateDiskLeft : MonoBehaviour
 {
     private Vector2 oldTouchPosition;
-    public TMP_Text leftText;
+    public TMP_Text diskText;
     private int randomNumber;
     private bool isDragging = false;
+
 
     private void Start()
     {
@@ -16,7 +18,7 @@ public class RotateDiskLeft : MonoBehaviour
     private void RandomGenerator()
     {
         randomNumber = Random.Range(2, 13);
-        leftText.text = randomNumber.ToString();
+        diskText.text = randomNumber.ToString();
     }
 
     private void Update()
@@ -69,7 +71,7 @@ public class RotateDiskLeft : MonoBehaviour
                             else if (randomNumber < 2)
                                 randomNumber = 12;
 
-                            leftText.text = randomNumber.ToString();
+                            diskText.text = randomNumber.ToString();
                             oldTouchPosition = touch.position;
                         }
                         break;
