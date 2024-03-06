@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.Experimental.XR;
 using UnityEngine.XR.ARSubsystems;
 using System;
 
@@ -27,7 +26,7 @@ public class PlacementScript : MonoBehaviour
     void Update()
     {
         UpdatePlacementIndicator();
-        UpdatePlacementPose();  
+        UpdatePlacementPose();
     }
 
     private void UpdatePlacementIndicator()
@@ -35,13 +34,21 @@ public class PlacementScript : MonoBehaviour
         if (placementPoseIsValid)
         {
             placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+
+
+            placementIndicator.transform.position = placementPose.position;
+
+            Vector3 surfaceNormal = placementPose.rotation * Vector3.up;
+            Quaternion rotation = Quaternion.LookRotation(surfaceNormal);
+
+            placementIndicator.transform.rotation = rotation;
         }
         else
         {
             placementIndicator.SetActive(false);
         }
     }
+
 
     private void UpdatePlacementPose()
     {
