@@ -13,10 +13,19 @@ public class BackendApi : MonoBehaviour
     List<Dictionary<string, string>> mathProblems = new List<Dictionary<string, string>>();
     public bool isCorrect = false;
 
+    // void Start()
+    // {
+    //     string difficulty = DetermineNextDifficultyLevel();
+    //     StartCoroutine(RetrieveMathProblem(difficulty, OnMathProblemReceived));
+    // }
+
+    // START FUNCTION FOR TESTING
     void Start()
     {
-        string difficulty = DetermineNextDifficultyLevel();
-        StartCoroutine(RetrieveMathProblem(difficulty, OnMathProblemReceived));
+    string difficulty = DetermineNextDifficultyLevel();
+
+    List<Dictionary<string, string>> mathProblems = RetrieveMathProblem(difficulty);
+    OnMathProblemReceived(mathProblems); 
     }
 
     void OnMathProblemReceived(List<Dictionary<string, string>> mathProblems)
@@ -40,45 +49,84 @@ public class BackendApi : MonoBehaviour
     }
 
     // makes a GET request to the backend API to retrieve math problems.
-    IEnumerator RetrieveMathProblem(string requestedDifficulty, System.Action<List<Dictionary<string, string>>> callback)
-    {
-        Debug.Log("Starting...");
-        Debug.Log("Requested difficulty is: " + requestedDifficulty);
-        // apiUrl += "?difficulty=" + UnityWebRequest.EscapeURL(requestedDifficulty);
+    // IEnumerator RetrieveMathProblem(string requestedDifficulty, System.Action<List<Dictionary<string, string>>> callback)
+    // {
+    //     Debug.Log("Starting...");
+    //     Debug.Log("Requested difficulty is: " + requestedDifficulty);
+    //     // apiUrl += "?difficulty=" + UnityWebRequest.EscapeURL(requestedDifficulty);
         
-        string separator = apiUrl.Contains("?") ? "&" : "?";
-        apiUrl += separator + "difficulty=" + UnityWebRequest.EscapeURL(requestedDifficulty);
+    //     string separator = apiUrl.Contains("?") ? "&" : "?";
+    //     apiUrl += separator + "difficulty=" + UnityWebRequest.EscapeURL(requestedDifficulty);
 
-        Debug.Log(apiUrl);
+    //     Debug.Log(apiUrl);
 
-        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
+    //     using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
+    //     {
+    //         yield return request.SendWebRequest();
+
+    //         if (request.result != UnityWebRequest.Result.Success)
+    //         {
+    //             Debug.LogError("Failed to retrieve math problems: " + request.error);
+    //             callback(null);
+    //         }
+    //         else
+    //         {
+    //             string jsonResponse = request.downloadHandler.text;
+    //             // Debug.Log("Received JSON response: " + jsonResponse);
+
+    //             try
+    //             {
+    //                 List<Dictionary<string, string>> mathProblems = ParseMathProblems(jsonResponse);
+    //                 callback(mathProblems);
+    //             }
+    //             catch (System.Exception e)
+    //             {
+    //                 Debug.LogError("Failed to parse JSON response: " + e.Message);
+    //                 callback(null);
+    //             }
+    //         }
+    //     }
+    //     apiUrl = "https://berdbackend.azurewebsites.net/api/math-problems";
+    // }
+    // FUNCTION FOR TESTING
+    List<Dictionary<string, string>> RetrieveMathProblem(string difficulty)
+    {
+        var mathProblems = new List<Dictionary<string, string>>();
+
+        if (difficulty == "Easy")
         {
-            yield return request.SendWebRequest();
+            var easyProducts = new List<int> { 9, 11, 14, 15, 21, 22, 25, 26, 27, 33, 44, 55, 66, 77, 88, 99 };
+            int product = easyProducts[UnityEngine.Random.Range(0, easyProducts.Count)];
 
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError("Failed to retrieve math problems: " + request.error);
-                callback(null);
-            }
-            else
-            {
-                string jsonResponse = request.downloadHandler.text;
-                // Debug.Log("Received JSON response: " + jsonResponse);
-
-                try
-                {
-                    List<Dictionary<string, string>> mathProblems = ParseMathProblems(jsonResponse);
-                    callback(mathProblems);
-                }
-                catch (System.Exception e)
-                {
-                    Debug.LogError("Failed to parse JSON response: " + e.Message);
-                    callback(null);
-                }
-            }
+        mathProblems.Add(new Dictionary<string, string> {
+                { "question", $"__ * __ = {product}" },
+                { "answer", product.ToString()},
+                { "difficulty", "Easy" }
+            });
         }
-        apiUrl = "https://berdbackend.azurewebsites.net/api/math-problems";
+        else if (difficulty == "Medium")
+        {
+            int num1 = UnityEngine.Random.Range(5, 10);
+            int num2 = UnityEngine.Random.Range(2, 10);  
+            mathProblems.Add(new Dictionary<string, string> {
+                { "question", $"{num1} * __ = {num1 * num2}" },
+                { "answer", num2.ToString() },
+                { "difficulty", "Medium" }
+            });
+        }
+        else if (difficulty == "Hard")
+        {
+            int num1 = UnityEngine.Random.Range(10, 13); 
+            int num2 = UnityEngine.Random.Range(5, 12); 
+            mathProblems.Add(new Dictionary<string, string> {
+                { "question", $"{num1} * __ = {num1 * num2}" },
+                { "answer", num2.ToString() },
+                { "difficulty", "Hard" }
+            });
+        }
+        return mathProblems;
     }
+
 
     public string DetermineNextDifficultyLevel()
     {
@@ -86,7 +134,7 @@ public class BackendApi : MonoBehaviour
         if (mathQuestion != null)
         {            
             if ((mathQuestion["difficulty"] == "Easy" && isCorrect) ||
-                (mathQuestion["difficulty"] == "Hard" && isCorrect))
+                (mathQuestion["difficulty"] == "Hard" && !isCorrect))
             {
                 difficultyLevel = "Medium";
             }
@@ -122,10 +170,19 @@ public class BackendApi : MonoBehaviour
         return mathProblems;
     }
 
+    //  public void RequestNewQuestion(string newDifficulty)
+    // {
+    //     Call RetrieveMathProblem with the new difficulty
+    //     StartCoroutine(RetrieveMathProblem(newDifficulty, OnMathProblemReceived));
+    // }
+
+    // FUNCTION FOR TESTING
     public void RequestNewQuestion(string newDifficulty)
     {
         // Call RetrieveMathProblem with the new difficulty
-        StartCoroutine(RetrieveMathProblem(newDifficulty, OnMathProblemReceived));
+        // StartCoroutine(RetrieveMathProblem(newDifficulty, OnMathProblemReceived));
+        List<Dictionary<string, string>> mathProblems = RetrieveMathProblem(newDifficulty);
+        OnMathProblemReceived(mathProblems); 
     }
 
     public Dictionary<string, string> getMathQuestion()
