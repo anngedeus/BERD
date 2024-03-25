@@ -95,7 +95,7 @@ public class BackendApi : MonoBehaviour
 
         if (difficulty == "Easy")
         {
-            var easyProducts = new List<int> { 9, 11, 14, 15, 21, 22, 25, 26, 27, 33, 44, 55, 66, 77, 88, 99 };
+            var easyProducts = new List<int> { 9, 11, 14, 15, 21, 22, 25, 27, 33, 44, 55, 66, 77, 88, 99 };
             int product = easyProducts[UnityEngine.Random.Range(0, easyProducts.Count)];
 
         mathProblems.Add(new Dictionary<string, string> {
