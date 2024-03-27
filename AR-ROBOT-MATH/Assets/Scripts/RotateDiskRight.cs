@@ -46,14 +46,14 @@ public class RotateDiskRight : MonoBehaviour
                             {
                                 Vector2 swipeValue = new Vector2(touch.position.x - oldTouchPosition, 0f);
                                 float rotationSpeed = 0.5f;
-                                bool aboveHalfway = touch.position.y > 700f;
+                                bool aboveHalfway = touch.position.y > 770f;
                                 float rotationAmount = swipeValue.x * rotationSpeed * (aboveHalfway ? -1f : 1f);
                                 transform.Rotate(Vector3.forward, rotationAmount, Space.World);
 
                                 // Update the random number based on rotation direction
-                                if (rotationAmount < -10)
+                                if (rotationAmount < -5)
                                     randomNumber++;
-                                else if (rotationAmount > 10)
+                                else if (rotationAmount > 5)
                                     randomNumber--;
 
                                 // Ensure the number stays within range

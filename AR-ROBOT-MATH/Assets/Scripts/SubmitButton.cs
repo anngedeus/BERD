@@ -21,6 +21,10 @@ public class SubmitButton : MonoBehaviour
     private int currentAudioIndex = 0;
     public GameObject[] progressButtons;
     private int progressNum = 0;
+    public TMP_Text scoreText;
+    private int score = 0;
+    public GameObject[] lives;
+    private int livesUsed = 0;
 
     private void Start()
     {
@@ -35,16 +39,6 @@ public class SubmitButton : MonoBehaviour
         };
 
         audioClips = Resources.LoadAll<AudioClip>("Beats/Beat Stems (Mashed)/" + songNames[songNum]);
-        if (audioClips.Length > 0)
-        {
-            audioSource.clip = audioClips[currentAudioIndex];
-            audioSource.Play();
-        }
-        else
-        {
-            Debug.LogWarning("No audio clips found in the specified path.");
-        }
-
     }
 
     public void ButtonPressed()
@@ -54,7 +48,15 @@ public class SubmitButton : MonoBehaviour
         int.TryParse(rightText.text, out rightNumber);
         Debug.Log("LeftText: " + leftNumber);
         Debug.Log("RightText: " + rightNumber);
-        backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
+        if (backendApiEndpoint.mathQuestion["difficulty"] == "Easy")
+        {
+            backendApiEndpoint.validateAnswer(leftNumber, rightNumber);
+        }
+        else
+        {
+            backendApiEndpoint.validateAnswer(rightNumber, null);
+        }
+       
         ChangeTextDisplay();
         RandomGenerator();
     }
@@ -69,6 +71,30 @@ public class SubmitButton : MonoBehaviour
             ChangeStem();
             EnableProgressButton();
         }
+        //adding points based on what question was asked correctly
+        if (backendApiEndpoint.mathQuestion["difficulty"] == "Easy" && nextDifficultyLevel == "Medium"){
+            score += 10;
+        }
+        else if (backendApiEndpoint.mathQuestion["difficulty"] == "Medium" && nextDifficultyLevel == "Hard"){
+            score += 30;
+        }
+        else if (backendApiEndpoint.mathQuestion["difficulty"] == "Hard" && nextDifficultyLevel == "Hard"){
+            score += 50;
+        }
+        else
+        {
+            //answer was wrong, remove a life
+            lives[livesUsed].GetComponent<Image>().color = Color.gray;
+            livesUsed++;
+            if (livesUsed == 3)
+            {
+                //Reset everything, game is over
+                ResetGame();
+            }
+        }
+        //update score
+        scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
+        //get new question and display it
         backendApiEndpoint.RequestNewQuestion(nextDifficultyLevel);
         BGColor.GetComponent<TextMeshProUGUI>().text = backendApiEndpoint.mathQuestion["question"];
     }
@@ -77,8 +103,11 @@ public class SubmitButton : MonoBehaviour
     private void RandomGenerator()
     {
         randomNumberLeft = Random.Range(2, 13);
-        randomNumberRight = Random.Range(2, 13); 
-        leftText.text = randomNumberLeft.ToString();
+        randomNumberRight = Random.Range(2, 13);
+        if (backendApiEndpoint.mathQuestion["difficulty"] == "Easy")
+        {
+            leftText.text = randomNumberLeft.ToString();
+        }
         rightText.text = randomNumberRight.ToString();
     }
 
@@ -126,5 +155,10 @@ public class SubmitButton : MonoBehaviour
         progressButtons[progressNum].GetComponent<Button>().interactable = true;
         progressButtons[progressNum].GetComponent<Image>().color = new Color(Random.value, 0.5f, 0.8f);
         progressNum++;
+    }
+
+    private void ResetGame()
+    {
+
     }
 }
