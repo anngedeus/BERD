@@ -53,7 +53,7 @@ public class RotateDiskLeft : MonoBehaviour
                             bool aboveHalfway = touch.position.y > 770f;
 
                             //transform.Rotate(Vector3.forward, rotationAmount, Space.World);
-                            float rotationAmountX = swipeValue.x * rotationSpeed * (aboveHalfway ? -1f : 1f);
+                            float rotationAmountX = swipeValue.x * rotationSpeed * (aboveHalfway ? 1f : -1f);
 
                             // Rotate the object around x axis
                             transform.Rotate(Vector3.forward, rotationAmountX, Space.World);
