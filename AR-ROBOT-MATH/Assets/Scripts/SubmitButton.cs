@@ -63,6 +63,8 @@ public class SubmitButton : MonoBehaviour
 
     private void ChangeTextDisplay()
     {
+        string userName = StartButton.userName;
+
         //getting the next difficulty based on what the player answered
         string nextDifficultyLevel = backendApiEndpoint.DetermineNextDifficultyLevel();
         //next beat will play when the player gets an answer correct
@@ -88,6 +90,7 @@ public class SubmitButton : MonoBehaviour
             livesUsed++;
             if (livesUsed == 3)
             {
+                UpdateScore(userName);
                 //Reset everything, game is over
                 ResetGame();
             }
@@ -99,6 +102,14 @@ public class SubmitButton : MonoBehaviour
         BGColor.GetComponent<TextMeshProUGUI>().text = backendApiEndpoint.mathQuestion["question"];
     }
 
+    private void UpdateScore(string userName)
+    {
+        // Add player's name and score to playerDataList
+        SavePlayerData.playerDataList.Add(new PlayerData("userName", score));
+        
+        // Save player data
+        SavePlayerData.Save();
+    }
 
     private void RandomGenerator()
     {
@@ -159,6 +170,6 @@ public class SubmitButton : MonoBehaviour
 
     private void ResetGame()
     {
-
+        // SceneManager.LoadScene("EndGame");
     }
 }

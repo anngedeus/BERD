@@ -8,7 +8,8 @@ using TMPro;
 public class StartButton : MonoBehaviour
 {
     public TMP_InputField userInput;
-    private string userName;
+    public static string userName;
+
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class StartButton : MonoBehaviour
         //getting the user name
         userName = userInput.text;
         Debug.Log("Entered name: " + userName);
+
         //changing to main scene
         SceneManager.LoadScene("XR-Testing-Unity.unity");
     }
